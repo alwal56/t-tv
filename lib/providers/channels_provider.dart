@@ -9,36 +9,36 @@ import '../services/xtream_service.dart';
 enum LoadingState { idle, loading, loaded, error }
 
 /// رقم إصدار القوائم الافتراضية — زيادته تُعيد تحميل القنوات تلقائياً
-const _defaultPlaylistsVersion = 3;
+const _defaultPlaylistsVersion = 4;
 
-/// مجلدات القنوات المدمجة
+/// مجلدات القنوات المدمجة — الترتيب يحدد الأولوية في الواجهة
 const _defaultPlaylists = [
-  // ⭐ القائمة المنتقاة — قنوات مجانية متحقق من عملها
+  // ⭐ القناوات المنتقاة: خليجية + عربية متحقق منها (أول ما يظهر)
   _DefaultPlaylist(
     name: '⭐ قنوات مختارة',
     url: 'https://alwal56.github.io/t-tv/playlists/arabic.m3u',
     maxChannels: 500,
   ),
-  // قنوات دولية رياضية
+  // ⚽ رياضة دولية — كل قنوات الرياضة من iptv-org (بدون حد عملي)
   _DefaultPlaylist(
-    name: '⚽ رياضة عالمية',
+    name: '⚽ رياضة دولية',
     url: 'https://iptv-org.github.io/iptv/categories/sports.m3u',
-    groupOverride: '⚽ رياضة عالمية',
-    maxChannels: 250,
+    groupOverride: '⚽ رياضة دولية',
+    maxChannels: 2000,
   ),
-  // قنوات عربية
+  // 🌍 قنوات عربية عامة
   _DefaultPlaylist(
     name: '🌍 قنوات عربية',
     url: 'https://iptv-org.github.io/iptv/languages/ara.m3u',
     groupOverride: '🌍 قنوات عربية',
-    maxChannels: 200,
+    maxChannels: 300,
   ),
-  // أخبار
+  // 📰 أخبار دولية
   _DefaultPlaylist(
     name: '📰 أخبار',
     url: 'https://iptv-org.github.io/iptv/categories/news.m3u',
     groupOverride: '📰 أخبار',
-    maxChannels: 100,
+    maxChannels: 200,
   ),
 ];
 
@@ -77,25 +77,33 @@ class ChannelsProvider extends ChangeNotifier {
   String get loadingLabel => _loadingLabel;
 
   List<String> get categories {
-    final defaultOrder =
-        _defaultPlaylists.map((dp) => dp.groupOverride ?? dp.name).toList();
+    // الترتيب المفضل للفئات — الرياضة أولاً ثم الأخبار ثم الترفيه
+    const preferredOrder = [
+      '🏟️ الكأس الرياضية',
+      '⚽ رياضة عربية',
+      '⚽ رياضة دولية',
+      '🌍 قنوات عربية',
+      '📰 أخبار',
+      '📺 MBC',
+      '🎬 أفلام',
+      '🎬 مسلسلات',
+      '🎵 موسيقى',
+      '📡 قنوات عامة',
+    ];
+
     final allGroups = _allChannels.map((c) => c.group ?? 'عام').toSet();
 
+    // ابدأ بالفئات المفضلة الموجودة فعلاً
     final ordered = <String>[];
-    for (final g in defaultOrder) {
+    for (final g in preferredOrder) {
       if (allGroups.contains(g)) ordered.add(g);
     }
-    for (final g in allGroups) {
-      if (!ordered.contains(g)) ordered.add(g);
-    }
-    ordered.sort((a, b) {
-      final ai = defaultOrder.indexOf(a);
-      final bi = defaultOrder.indexOf(b);
-      if (ai != -1 && bi != -1) return ai.compareTo(bi);
-      if (ai != -1) return -1;
-      if (bi != -1) return 1;
-      return a.compareTo(b);
-    });
+    // ثم الفئات المتبقية الأخرى بالترتيب الأبجدي
+    final remaining = allGroups
+        .where((g) => !ordered.contains(g))
+        .toList()
+      ..sort();
+    ordered.addAll(remaining);
 
     return ['الكل', 'المفضلة', ...ordered];
   }
