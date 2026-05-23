@@ -9,7 +9,7 @@ import '../services/xtream_service.dart';
 enum LoadingState { idle, loading, loaded, error }
 
 /// رقم إصدار القوائم الافتراضية — زيادته تُعيد تحميل القنوات تلقائياً
-const _defaultPlaylistsVersion = 4;
+const _defaultPlaylistsVersion = 5;
 
 /// مجلدات القنوات المدمجة — الترتيب يحدد الأولوية في الواجهة
 const _defaultPlaylists = [
