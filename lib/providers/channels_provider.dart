@@ -9,14 +9,14 @@ import '../services/xtream_service.dart';
 enum LoadingState { idle, loading, loaded, error }
 
 /// رقم إصدار القوائم الافتراضية — زيادته تُعيد تحميل القنوات تلقائياً
-const _defaultPlaylistsVersion = 5;
+const _defaultPlaylistsVersion = 6;
 
 /// مجلدات القنوات المدمجة — الترتيب يحدد الأولوية في الواجهة
 const _defaultPlaylists = [
-  // ⭐ القناوات المنتقاة: خليجية + عربية متحقق منها (أول ما يظهر)
+  // ⭐ القناوات المنتقاة — raw GitHub (يتجاوز كاش Service Worker دائماً)
   _DefaultPlaylist(
     name: '⭐ قنوات مختارة',
-    url: 'https://alwal56.github.io/t-tv/playlists/arabic.m3u',
+    url: 'https://raw.githubusercontent.com/alwal56/t-tv/main/web/playlists/arabic.m3u',
     maxChannels: 500,
   ),
   // ⚽ رياضة دولية — كل قنوات الرياضة من iptv-org (بدون حد عملي)

@@ -44234,7 +44234,7 @@ h=r[4]
 g=r[5]
 f=r[6]
 e=r[7]
-for(d=l,q=0;q<64;++q,e=f,f=g,g=h,h=b,i=j,j=k,k=d,d=a){c=(e+(((h>>>6|h<<26)^(h>>>11|h<<21)^(h>>>25|h<<7))>>>0)>>>0)+(((h&g^~h&f)>>>0)+(B.JT[q]+s[q]>>>0)>>>0)>>>0
+for(d=l,q=0;q<64;++q,e=f,f=g,g=h,h=b,i=j,j=k,k=d,d=a){c=(e+(((h>>>6|h<<26)^(h>>>11|h<<21)^(h>>>25|h<<7))>>>0)>>>0)+(((h&g^~h&f)>>>0)+(B.JU[q]+s[q]>>>0)>>>0)>>>0
 b=i+c>>>0
 a=c+((((d>>>2|d<<30)^(d>>>13|d<<19)^(d>>>22|d<<10))>>>0)+((d&k^d&j^k&j)>>>0)>>>0)>>>0}r.$flags&2&&A.ax(r)
 r[0]=d+l>>>0
@@ -52667,7 +52667,7 @@ A.avN.prototype={
 $2(a,b){return this.a.cb(a,b)},
 $S:16}
 A.Us.prototype={
-gLl(){return B.JW},
+gLl(){return B.JX},
 UA(a){var s,r=this
 switch(a.a){case 0:s=r.d.as
 break
@@ -90732,7 +90732,7 @@ var $async$vs=A.F(function(a,b){if(a===1)return A.H(b,r)
 while(true)switch(s){case 0:q.c=A.aWA()
 p=A.fZ(J.bj($.fr.aO().a,"default_playlists_version"))
 if(p==null)p=0
-s=q.c.length===0||p!==5?2:4
+s=q.c.length===0||p!==6?2:4
 break
 case 2:s=5
 return A.E(q.nF(),$async$vs)
@@ -90813,7 +90813,7 @@ m=A.b([],t.Fh)
 l=A.aE(t.N)
 g=0
 case 2:if(!(g<4)){s=4
-break}k=B.JY[g]
+break}k=B.JT[g]
 q=6
 o.x="\u062c\u0627\u0631\u064a \u062a\u062d\u0645\u064a\u0644 "+k.a+"..."
 o.ai()
@@ -90844,7 +90844,7 @@ o.c=f
 s=13
 return A.E(A.we(f),$async$nF)
 case 13:s=14
-return A.E($.fr.aO().mc("Int","default_playlists_version",5),$async$nF)
+return A.E($.fr.aO().mc("Int","default_playlists_version",6),$async$nF)
 case 14:o.f=B.hl
 s=11
 break
@@ -91433,7 +91433,7 @@ r.a3L()},
 L(a){var s,r=null,q=A.bM(a,r,t.w).w,p=A.ck(r,r,B.o,r,r,new A.bL(B.c0,r,r,A.c1(2),r,r,B.J),r,4,B.G_,r,r,r,40),o=A.c1(12),n=this.d
 n===$&&A.a()
 s=t.p
-return new A.bq(new A.a8(0,0,0,q.f.d),A.cT(A.b([p,B.bR,B.O6,B.bR,A.ck(r,new A.E8(B.JX,n,new A.bL(B.r,r,r,A.c1(10),r,r,B.J),B.Sk,B.D,B.j,B.O,B.Tf,r),B.o,r,r,new A.bL(B.ef,r,r,o,r,r,B.J),r,r,B.fT,r,r,r,r),B.bR,A.cX(new A.E9(n,A.b([this.a5U(),this.a6f()],s),r),200,r),B.bR],s),B.x,B.v,B.ai),r)},
+return new A.bq(new A.a8(0,0,0,q.f.d),A.cT(A.b([p,B.bR,B.O6,B.bR,A.ck(r,new A.E8(B.JY,n,new A.bL(B.r,r,r,A.c1(10),r,r,B.J),B.Sk,B.D,B.j,B.O,B.Tf,r),B.o,r,r,new A.bL(B.ef,r,r,o,r,r,B.J),r,r,B.fT,r,r,r,r),B.bR,A.cX(new A.E9(n,A.b([this.a5U(),this.a6f()],s),r),200,r),B.bR],s),B.x,B.v,B.ai),r)},
 a5U(){var s=null
 return new A.bq(B.fT,A.cT(A.b([A.wp(this.e,B.Iq,!1,s,B.cg),B.bR,A.cX(A.pQ(B.HP,B.XP,new A.aop(this),s),s,1/0)],t.p),B.x,B.v,B.H),s)},
 a6f(){var s=this,r=null,q=A.wp(s.f,B.Ip,!1,r,B.cg),p=A.fk(A.wp(s.r,B.Io,!1,r,B.cg),1),o=s.x,n=t.p
@@ -96988,7 +96988,12 @@ B.BH=new A.pq(B.ow,B.ow,"\u0627\u0644\u0645\u0641\u0636\u0644\u0629")
 B.ot=new A.ca(B.op,null,null,null,null)
 B.BK=new A.pq(B.ot,B.ot,"\u0627\u0644\u0625\u0639\u062f\u0627\u062f\u0627\u062a")
 B.JQ=A.b(s([B.BJ,B.BI,B.BH,B.BK]),A.aw("A<pq>"))
-B.JT=A.b(s([1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,3204031479,3329325298]),t.t)
+B.ZK=new A.t3("\u2b50 \u0642\u0646\u0648\u0627\u062a \u0645\u062e\u062a\u0627\u0631\u0629","https://raw.githubusercontent.com/alwal56/t-tv/main/web/playlists/arabic.m3u",null,500)
+B.ZH=new A.t3("\u26bd \u0631\u064a\u0627\u0636\u0629 \u062f\u0648\u0644\u064a\u0629","https://iptv-org.github.io/iptv/categories/sports.m3u","\u26bd \u0631\u064a\u0627\u0636\u0629 \u062f\u0648\u0644\u064a\u0629",2000)
+B.ZJ=new A.t3("\ud83c\udf0d \u0642\u0646\u0648\u0627\u062a \u0639\u0631\u0628\u064a\u0629","https://iptv-org.github.io/iptv/languages/ara.m3u","\ud83c\udf0d \u0642\u0646\u0648\u0627\u062a \u0639\u0631\u0628\u064a\u0629",300)
+B.ZI=new A.t3("\ud83d\udcf0 \u0623\u062e\u0628\u0627\u0631","https://iptv-org.github.io/iptv/categories/news.m3u","\ud83d\udcf0 \u0623\u062e\u0628\u0627\u0631",200)
+B.JT=A.b(s([B.ZK,B.ZH,B.ZJ,B.ZI]),A.aw("A<t3>"))
+B.JU=A.b(s([1116352408,1899447441,3049323471,3921009573,961987163,1508970993,2453635748,2870763221,3624381080,310598401,607225278,1426881987,1925078388,2162078206,2614888103,3248222580,3835390401,4022224774,264347078,604807628,770255983,1249150122,1555081692,1996064986,2554220882,2821834349,2952996808,3210313671,3336571891,3584528711,113926993,338241895,666307205,773529912,1294757372,1396182291,1695183700,1986661051,2177026350,2456956037,2730485921,2820302411,3259730800,3345764771,3516065817,3600352804,4094571909,275423344,430227734,506948616,659060556,883997877,958139571,1322822218,1537002063,1747873779,1955562222,2024104815,2227730452,2361852424,2428436474,2756734187,3204031479,3329325298]),t.t)
 B.aF=new A.eZ(0,"icon")
 B.aP=new A.eZ(1,"input")
 B.ab=new A.eZ(2,"label")
@@ -97000,10 +97005,10 @@ B.aL=new A.eZ(7,"suffixIcon")
 B.bD=new A.eZ(8,"helperError")
 B.bT=new A.eZ(9,"counter")
 B.cm=new A.eZ(10,"container")
-B.JW=A.b(s([B.aF,B.aP,B.ab,B.aS,B.aT,B.aU,B.a9,B.aL,B.bD,B.bT,B.cm]),A.aw("A<eZ>"))
+B.JX=A.b(s([B.aF,B.aP,B.ab,B.aS,B.aT,B.aU,B.a9,B.aL,B.bD,B.bT,B.cm]),A.aw("A<eZ>"))
 B.Sp=new A.E7("\u0631\u0627\u0628\u0637 M3U",null)
 B.So=new A.E7("Xtream Codes",null)
-B.JX=A.b(s([B.Sp,B.So]),t.p)
+B.JY=A.b(s([B.Sp,B.So]),t.p)
 B.L1=new A.kE("en","US")
 B.oN=A.b(s([B.L1]),t.ss)
 B.ZQ=new A.mA(0,0)
@@ -97013,11 +97018,6 @@ B.ZU=new A.mA(6,0.11)
 B.ZS=new A.mA(8,0.12)
 B.ZR=new A.mA(12,0.14)
 B.oO=A.b(s([B.ZQ,B.ZV,B.ZT,B.ZU,B.ZS,B.ZR]),A.aw("A<mA>"))
-B.ZH=new A.t3("\u2b50 \u0642\u0646\u0648\u0627\u062a \u0645\u062e\u062a\u0627\u0631\u0629","https://alwal56.github.io/t-tv/playlists/arabic.m3u",null,500)
-B.ZI=new A.t3("\u26bd \u0631\u064a\u0627\u0636\u0629 \u062f\u0648\u0644\u064a\u0629","https://iptv-org.github.io/iptv/categories/sports.m3u","\u26bd \u0631\u064a\u0627\u0636\u0629 \u062f\u0648\u0644\u064a\u0629",2000)
-B.ZK=new A.t3("\ud83c\udf0d \u0642\u0646\u0648\u0627\u062a \u0639\u0631\u0628\u064a\u0629","https://iptv-org.github.io/iptv/languages/ara.m3u","\ud83c\udf0d \u0642\u0646\u0648\u0627\u062a \u0639\u0631\u0628\u064a\u0629",300)
-B.ZJ=new A.t3("\ud83d\udcf0 \u0623\u062e\u0628\u0627\u0631","https://iptv-org.github.io/iptv/categories/news.m3u","\ud83d\udcf0 \u0623\u062e\u0628\u0627\u0631",200)
-B.JY=A.b(s([B.ZH,B.ZI,B.ZK,B.ZJ]),A.aw("A<t3>"))
 B.K7=A.b(s([-1,0,0,1,0,0,-1,0,1,0,0,0,-1,1,0,1,1,1,1,0]),t.n)
 B.Bs=new A.KH(2,"outer")
 B.mW=new A.B(0.09803921568627451,0,0,0,B.e)
@@ -97663,7 +97663,7 @@ B.Kg=A.b(s([8589934850,8589934850,8589934851,null]),t.Z)
 B.uT=new A.dv(["*",B.Jh,"+",B.Ji,"-",B.Jj,".",B.Jk,"/",B.Jl,"0",B.Jm,"1",B.Jn,"2",B.Jq,"3",B.Js,"4",B.Jt,"5",B.Ju,"6",B.Jv,"7",B.Jw,"8",B.Jx,"9",B.Jz,"Alt",B.Kd,"AltGraph",B.J6,"ArrowDown",B.J7,"ArrowLeft",B.J8,"ArrowRight",B.J9,"ArrowUp",B.Ja,"Clear",B.Jf,"Control",B.Ke,"Delete",B.J5,"End",B.Jb,"Enter",B.J4,"Home",B.Jc,"Insert",B.Jg,"Meta",B.Kf,"PageDown",B.Jd,"PageUp",B.Je,"Shift",B.Kg],A.aw("dv<h,y<o?>>"))
 B.Jy=A.b(s([B.p0,null,null,B.uH]),t.L)
 B.KJ=A.b(s([B.ut,null,null,B.uI]),t.L)
-B.JU=A.b(s([B.uu,null,null,B.uJ]),t.L)
+B.JV=A.b(s([B.uu,null,null,B.uJ]),t.L)
 B.Kj=A.b(s([B.uv,null,null,B.cX]),t.L)
 B.IZ=A.b(s([B.uw,null,null,B.uK]),t.L)
 B.KU=A.b(s([B.ux,null,null,B.kx]),t.L)
@@ -97693,7 +97693,7 @@ B.JI=A.b(s([B.eL,B.eL,B.ht,null]),t.L)
 B.K3=A.b(s([B.eH,null,null,B.eN]),t.L)
 B.Ks=A.b(s([B.eI,null,null,B.eP]),t.L)
 B.JJ=A.b(s([B.cz,B.cz,B.cW,null]),t.L)
-B.MN=new A.dv(["*",B.Jy,"+",B.KJ,"-",B.JU,".",B.Kj,"/",B.IZ,"0",B.KU,"1",B.KR,"2",B.JF,"3",B.KZ,"4",B.KP,"5",B.JC,"6",B.J3,"7",B.JO,"8",B.KK,"9",B.KL,"Alt",B.JG,"AltGraph",B.KV,"ArrowDown",B.JZ,"ArrowLeft",B.K_,"ArrowRight",B.K0,"ArrowUp",B.KX,"Clear",B.KN,"Control",B.JH,"Delete",B.Ko,"End",B.K1,"Enter",B.JB,"Home",B.K2,"Insert",B.KO,"Meta",B.JI,"PageDown",B.K3,"PageUp",B.Ks,"Shift",B.JJ],A.aw("dv<h,y<i?>>"))
+B.MN=new A.dv(["*",B.Jy,"+",B.KJ,"-",B.JV,".",B.Kj,"/",B.IZ,"0",B.KU,"1",B.KR,"2",B.JF,"3",B.KZ,"4",B.KP,"5",B.JC,"6",B.J3,"7",B.JO,"8",B.KK,"9",B.KL,"Alt",B.JG,"AltGraph",B.KV,"ArrowDown",B.JZ,"ArrowLeft",B.K_,"ArrowRight",B.K0,"ArrowUp",B.KX,"Clear",B.KN,"Control",B.JH,"Delete",B.Ko,"End",B.K1,"Enter",B.JB,"Home",B.K2,"Insert",B.KO,"Meta",B.JI,"PageDown",B.K3,"PageUp",B.Ks,"Shift",B.JJ],A.aw("dv<h,y<i?>>"))
 B.Nh={KeyA:0,KeyB:1,KeyC:2,KeyD:3,KeyE:4,KeyF:5,KeyG:6,KeyH:7,KeyI:8,KeyJ:9,KeyK:10,KeyL:11,KeyM:12,KeyN:13,KeyO:14,KeyP:15,KeyQ:16,KeyR:17,KeyS:18,KeyT:19,KeyU:20,KeyV:21,KeyW:22,KeyX:23,KeyY:24,KeyZ:25,Digit1:26,Digit2:27,Digit3:28,Digit4:29,Digit5:30,Digit6:31,Digit7:32,Digit8:33,Digit9:34,Digit0:35,Minus:36,Equal:37,BracketLeft:38,BracketRight:39,Backslash:40,Semicolon:41,Quote:42,Backquote:43,Comma:44,Period:45,Slash:46}
 B.kD=new A.bQ(B.Nh,["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","1","2","3","4","5","6","7","8","9","0","-","=","[","]","\\",";","'","`",",",".","/"],t.li)
 B.Ne={Abort:0,Again:1,AltLeft:2,AltRight:3,ArrowDown:4,ArrowLeft:5,ArrowRight:6,ArrowUp:7,AudioVolumeDown:8,AudioVolumeMute:9,AudioVolumeUp:10,Backquote:11,Backslash:12,Backspace:13,BracketLeft:14,BracketRight:15,BrightnessDown:16,BrightnessUp:17,BrowserBack:18,BrowserFavorites:19,BrowserForward:20,BrowserHome:21,BrowserRefresh:22,BrowserSearch:23,BrowserStop:24,CapsLock:25,Comma:26,ContextMenu:27,ControlLeft:28,ControlRight:29,Convert:30,Copy:31,Cut:32,Delete:33,Digit0:34,Digit1:35,Digit2:36,Digit3:37,Digit4:38,Digit5:39,Digit6:40,Digit7:41,Digit8:42,Digit9:43,DisplayToggleIntExt:44,Eject:45,End:46,Enter:47,Equal:48,Escape:49,Esc:50,F1:51,F10:52,F11:53,F12:54,F13:55,F14:56,F15:57,F16:58,F17:59,F18:60,F19:61,F2:62,F20:63,F21:64,F22:65,F23:66,F24:67,F3:68,F4:69,F5:70,F6:71,F7:72,F8:73,F9:74,Find:75,Fn:76,FnLock:77,GameButton1:78,GameButton10:79,GameButton11:80,GameButton12:81,GameButton13:82,GameButton14:83,GameButton15:84,GameButton16:85,GameButton2:86,GameButton3:87,GameButton4:88,GameButton5:89,GameButton6:90,GameButton7:91,GameButton8:92,GameButton9:93,GameButtonA:94,GameButtonB:95,GameButtonC:96,GameButtonLeft1:97,GameButtonLeft2:98,GameButtonMode:99,GameButtonRight1:100,GameButtonRight2:101,GameButtonSelect:102,GameButtonStart:103,GameButtonThumbLeft:104,GameButtonThumbRight:105,GameButtonX:106,GameButtonY:107,GameButtonZ:108,Help:109,Home:110,Hyper:111,Insert:112,IntlBackslash:113,IntlRo:114,IntlYen:115,KanaMode:116,KeyA:117,KeyB:118,KeyC:119,KeyD:120,KeyE:121,KeyF:122,KeyG:123,KeyH:124,KeyI:125,KeyJ:126,KeyK:127,KeyL:128,KeyM:129,KeyN:130,KeyO:131,KeyP:132,KeyQ:133,KeyR:134,KeyS:135,KeyT:136,KeyU:137,KeyV:138,KeyW:139,KeyX:140,KeyY:141,KeyZ:142,KeyboardLayoutSelect:143,Lang1:144,Lang2:145,Lang3:146,Lang4:147,Lang5:148,LaunchApp1:149,LaunchApp2:150,LaunchAssistant:151,LaunchControlPanel:152,LaunchMail:153,LaunchScreenSaver:154,MailForward:155,MailReply:156,MailSend:157,MediaFastForward:158,MediaPause:159,MediaPlay:160,MediaPlayPause:161,MediaRecord:162,MediaRewind:163,MediaSelect:164,MediaStop:165,MediaTrackNext:166,MediaTrackPrevious:167,MetaLeft:168,MetaRight:169,MicrophoneMuteToggle:170,Minus:171,NonConvert:172,NumLock:173,Numpad0:174,Numpad1:175,Numpad2:176,Numpad3:177,Numpad4:178,Numpad5:179,Numpad6:180,Numpad7:181,Numpad8:182,Numpad9:183,NumpadAdd:184,NumpadBackspace:185,NumpadClear:186,NumpadClearEntry:187,NumpadComma:188,NumpadDecimal:189,NumpadDivide:190,NumpadEnter:191,NumpadEqual:192,NumpadMemoryAdd:193,NumpadMemoryClear:194,NumpadMemoryRecall:195,NumpadMemoryStore:196,NumpadMemorySubtract:197,NumpadMultiply:198,NumpadParenLeft:199,NumpadParenRight:200,NumpadSubtract:201,Open:202,PageDown:203,PageUp:204,Paste:205,Pause:206,Period:207,Power:208,PrintScreen:209,PrivacyScreenToggle:210,Props:211,Quote:212,Resume:213,ScrollLock:214,Select:215,SelectTask:216,Semicolon:217,ShiftLeft:218,ShiftRight:219,ShowAllWindows:220,Slash:221,Sleep:222,Space:223,Super:224,Suspend:225,Tab:226,Turbo:227,Undo:228,WakeUp:229,ZoomToggle:230}
@@ -98193,8 +98193,8 @@ B.Pq=new A.ma(B.av,B.v,B.ai,B.x,null,B.bh,null,0,B.KI,null)
 B.Ha=new A.bB(62974,"MaterialIcons",!1)
 B.HG=new A.ca(B.Ha,20,B.r,null,null)
 B.Xw=new A.bS("\u062f\u0644\u064a\u0644 \u0627\u0644\u0628\u0631\u0627\u0645\u062c XMLTV",null,B.lu,null,null,null,null,null,null,null)
-B.JV=A.b(s([B.HG,B.cc,B.Xw]),t.p)
-B.Pr=new A.ma(B.av,B.v,B.H,B.x,null,B.bh,null,0,B.JV,null)
+B.JW=A.b(s([B.HG,B.cc,B.Xw]),t.p)
+B.Pr=new A.ma(B.av,B.v,B.H,B.x,null,B.bh,null,0,B.JW,null)
 B.Tl=new A.n(!0,B.j,null,null,null,null,10,B.a3,null,1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Xv=new A.bS("LIVE",null,B.Tl,null,null,null,null,null,null,null)
 B.JS=A.b(s([B.ov,B.i6,B.Xv]),t.p)
