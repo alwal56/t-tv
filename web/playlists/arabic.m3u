@@ -1,149 +1,162 @@
 #EXTM3U x-tvg-url=""
 
 #=====================================
-# 🏟️ قنوات الكأس الرياضية - قطر
-# Alkass Sports Network (Free - Qatar)
+# 🏟️ الكأس — Alkass Sports Network
 #=====================================
 
-#EXTINF:-1 tvg-id="AlkassOne.qa" tvg-name="الكأس 1 HD" tvg-logo="https://i.imgur.com/10mmlha.png" group-title="🏟️ الكأس الرياضية",الكأس 1 HD
+#EXTINF:-1 tvg-id="AlkassOne.qa" tvg-name="الكأس 1 HD" tvg-logo="https://i.imgur.com/10mmlha.png" group-title="🏟️ الكأس",الكأس 1 HD
 https://liveeu-gcp.alkassdigital.net/alkass1-p/main.m3u8
 
-#EXTINF:-1 tvg-id="AlkassTwo.qa" tvg-name="الكأس 2 HD" tvg-logo="https://i.imgur.com/8w61kFX.png" group-title="🏟️ الكأس الرياضية",الكأس 2 HD
+#EXTINF:-1 tvg-id="AlkassTwo.qa" tvg-name="الكأس 2 HD" tvg-logo="https://i.imgur.com/8w61kFX.png" group-title="🏟️ الكأس",الكأس 2 HD
 https://liveeu-gcp.alkassdigital.net/alkass2-p/main.m3u8
 
-#EXTINF:-1 tvg-id="AlkassThree.qa" tvg-name="الكأس 3 HD" tvg-logo="https://i.imgur.com/d57BdFh.png" group-title="🏟️ الكأس الرياضية",الكأس 3 HD
+#EXTINF:-1 tvg-id="AlkassThree.qa" tvg-name="الكأس 3 HD" tvg-logo="https://i.imgur.com/d57BdFh.png" group-title="🏟️ الكأس",الكأس 3 HD
 https://liveeu-gcp.alkassdigital.net/alkass3-p/main.m3u8
 
-#EXTINF:-1 tvg-id="AlkassFour.qa" tvg-name="الكأس 4 HD" tvg-logo="https://i.imgur.com/iDL65Wu.png" group-title="🏟️ الكأس الرياضية",الكأس 4 HD
+#EXTINF:-1 tvg-id="AlkassFour.qa" tvg-name="الكأس 4 HD" tvg-logo="https://i.imgur.com/iDL65Wu.png" group-title="🏟️ الكأس",الكأس 4 HD
 https://liveeu-gcp.alkassdigital.net/alkass4-p/main.m3u8
 
-#EXTINF:-1 tvg-id="AlkassFive.qa" tvg-name="الكأس 5 HD" tvg-logo="https://i.imgur.com/6RGNGsM.png" group-title="🏟️ الكأس الرياضية",الكأس 5 HD
+#EXTINF:-1 tvg-id="AlkassFive.qa" tvg-name="الكأس 5 HD" tvg-logo="https://i.imgur.com/6RGNGsM.png" group-title="🏟️ الكأس",الكأس 5 HD
 https://liveeu-gcp.alkassdigital.net/alkass5-p/main.m3u8
 
-#EXTINF:-1 tvg-id="AlkassSix.qa" tvg-name="الكأس 6 HD" tvg-logo="https://i.imgur.com/CrPSPSC.png" group-title="🏟️ الكأس الرياضية",الكأس 6 HD
+#EXTINF:-1 tvg-id="AlkassSix.qa" tvg-name="الكأس 6 HD" tvg-logo="https://i.imgur.com/CrPSPSC.png" group-title="🏟️ الكأس",الكأس 6 HD
 https://liveeu-gcp.alkassdigital.net/alkass6-p/main.m3u8
 
-#EXTINF:-1 tvg-id="AlkassSeven.qa" tvg-name="الكأس 7 HD" tvg-logo="https://i.imgur.com/3eyHP3S.png" group-title="🏟️ الكأس الرياضية",الكأس 7 HD
+#EXTINF:-1 tvg-id="AlkassSeven.qa" tvg-name="الكأس 7 HD" tvg-logo="https://i.imgur.com/3eyHP3S.png" group-title="🏟️ الكأس",الكأس 7 HD
 https://liveeu-gcp.alkassdigital.net/alkass7-p/main.m3u8
 
-#EXTINF:-1 tvg-id="AlkassSHOOF.qa" tvg-name="الكأس SHOOF" tvg-logo="https://shoof.alkass.net/assets/images/shoof.png" group-title="🏟️ الكأس الرياضية",الكأس SHOOF
+#EXTINF:-1 tvg-id="AlkassSHOOF.qa" tvg-name="الكأس SHOOF" tvg-logo="https://shoof.alkass.net/assets/images/shoof.png" group-title="🏟️ الكأس",الكأس SHOOF
 https://liveeu-gcp.alkassdigital.net/shooflive/main.m3u8
 
-#EXTINF:-1 tvg-id="AlkassSHOOF2.qa" tvg-name="الكأس SHOOF 2" tvg-logo="https://shoof.alkass.net/assets/images/shoof2.png" group-title="🏟️ الكأس الرياضية",الكأس SHOOF 2
+#EXTINF:-1 tvg-id="AlkassSHOOF2.qa" tvg-name="الكأس SHOOF 2" tvg-logo="https://shoof.alkass.net/assets/images/shoof2.png" group-title="🏟️ الكأس",الكأس SHOOF 2
 https://liveeu-gcp.alkassdigital.net/shooflive2/main.m3u8
 
 #=====================================
-# ⚽ رياضة عربية - خليجية
+# 📺 beIN Sports
 #=====================================
 
-# ── Kuwait Sports ────────────────────
-#EXTINF:-1 tvg-id="KTVSport.kw" tvg-name="الكويت الرياضية" tvg-logo="https://i.imgur.com/R1hGX1d.png" group-title="⚽ رياضة عربية",الكويت الرياضية
-https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
-
-#EXTINF:-1 tvg-id="KTVSportPlus.kw" tvg-name="الكويت الرياضية بلس" tvg-logo="https://i.imgur.com/l4oX0gf.png" group-title="⚽ رياضة عربية",الكويت الرياضية بلس
-https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8
-
-# ── Bahrain Sports ───────────────────
-#EXTINF:-1 tvg-id="BahrainSports1.bh" tvg-name="رياضة البحرين 1" tvg-logo="https://i.imgur.com/fBpLsbC.png" group-title="⚽ رياضة عربية",رياضة البحرين 1
-https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8
-
-#EXTINF:-1 tvg-id="BahrainSports2.bh" tvg-name="رياضة البحرين 2" tvg-logo="https://i.imgur.com/ZkuZmIo.png" group-title="⚽ رياضة عربية",رياضة البحرين 2
-https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8
-
-# ── Oman Sports ──────────────────────
-#EXTINF:-1 tvg-id="OmanSportsTV.om" tvg-name="عمان الرياضية" tvg-logo="https://i.imgur.com/1omi7p8.png" group-title="⚽ رياضة عربية",عمان الرياضية
-https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8
-
-# ── Abu Dhabi Sports ─────────────────
-#EXTINF:-1 tvg-id="AbuDhabiSports1.ae" tvg-name="أبوظبي الرياضية 1" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/7/77/AD_Sports_1_HD.png/200px-AD_Sports_1_HD.png" group-title="⚽ رياضة عربية",أبوظبي الرياضية 1
-https://admdn1.cdn.mangomolo.com/adsports1/smil:adsports1.stream.smil/playlist.m3u8
-
-#EXTINF:-1 tvg-id="AbuDhabiSports2.ae" tvg-name="أبوظبي الرياضية 2" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/df/AD_Sports_2_HD.png/200px-AD_Sports_2_HD.png" group-title="⚽ رياضة عربية",أبوظبي الرياضية 2
-https://admdn2.cdn.mangomolo.com/adsports2/smil:adsports2.stream.smil/playlist.m3u8
-
-# ── Saudi Sports (ثمانية) ────────────
-#EXTINF:-1 tvg-id="Thmanyah1.sa" tvg-name="ثمانية 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⚽ رياضة عربية",ثمانية 1
-https://dflive.app.tc/20.m3u8
-
-#EXTINF:-1 tvg-id="Thmanyah3.sa" tvg-name="ثمانية 3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⚽ رياضة عربية",ثمانية 3
-https://dflive.app.tc/61.m3u8
-
-# ── Sharjah & Free Sports ────────────
-#EXTINF:-1 tvg-id="SharjahSports.ae" tvg-name="رياضة الشارقة" tvg-logo="https://i.imgur.com/CsEElsJ.png" group-title="⚽ رياضة عربية",رياضة الشارقة
-https://svs.itworkscdn.net/smc4sportslive/smc4.smil/playlist.m3u8
-
-#EXTINF:-1 tvg-id="GoalZone.sa" tvg-name="Goal Zone" tvg-logo="https://shahid.mbc.net/mediaObject/18bf9987-49ab-4c51-bb94-c568efa51db7?height=auto&width=512&croppingPoint=&version=1&type=png" group-title="⚽ رياضة عربية",Goal Zone - شاهد
-https://shls-live-enc.edgenextcdn.net/out/v1/18cffab0757d448ca6c1a686d330b346/index.m3u8
-
-#EXTINF:-1 tvg-name="beIN SPORTS Xtra" tvg-logo="https://i.imgur.com/V562tpO.png" group-title="⚽ رياضة عربية",beIN SPORTS Xtra
-https://dc1644a9jazgj.cloudfront.net/beIN_Sports_Xtra_Espanol.m3u8
-
-# ── beIN Sports HD ───────────────────
-#EXTINF:-1 tvg-name="beIN Sports 1 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 1 HD
+#EXTINF:-1 tvg-name="beIN Sports 1 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="📺 beIN Sports",beIN Sports 1 HD
 http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/46
 
-#EXTINF:-1 tvg-name="beIN Sports 2 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 2 HD
+#EXTINF:-1 tvg-name="beIN Sports 2 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="📺 beIN Sports",beIN Sports 2 HD
 http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/47
 
-#EXTINF:-1 tvg-name="beIN Sports 3 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 3 HD
+#EXTINF:-1 tvg-name="beIN Sports 3 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="📺 beIN Sports",beIN Sports 3 HD
 http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/49
 
-#EXTINF:-1 tvg-name="beIN Sports 4 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 4 HD
+#EXTINF:-1 tvg-name="beIN Sports 4 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="📺 beIN Sports",beIN Sports 4 HD
 http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/50
 
-#EXTINF:-1 tvg-name="beIN Sports 5 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 5 HD
+#EXTINF:-1 tvg-name="beIN Sports 5 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="📺 beIN Sports",beIN Sports 5 HD
 http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/51
 
-#EXTINF:-1 tvg-name="beIN Sports 6 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 6 HD
+#EXTINF:-1 tvg-name="beIN Sports 6 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="📺 beIN Sports",beIN Sports 6 HD
 http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/52
 
-#EXTINF:-1 tvg-name="beIN Sports 7 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 7 HD
+#EXTINF:-1 tvg-name="beIN Sports 7 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="📺 beIN Sports",beIN Sports 7 HD
 http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/53
 
-#EXTINF:-1 tvg-name="beIN Sports 8 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 8 HD
+#EXTINF:-1 tvg-name="beIN Sports 8 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="📺 beIN Sports",beIN Sports 8 HD
 http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/54
 
-#EXTINF:-1 tvg-name="beIN Sports 9 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 9 HD
+#EXTINF:-1 tvg-name="beIN Sports 9 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="📺 beIN Sports",beIN Sports 9 HD
 http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4034
 
-# ── SSC (Saudi Sports Company) ───────
-#EXTINF:-1 tvg-name="KSA Sports 1" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="⚽ رياضة عربية",KSA Sports 1
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2053
-
-#EXTINF:-1 tvg-name="KSA Sports 2" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="⚽ رياضة عربية",KSA Sports 2
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2054
-
-#EXTINF:-1 tvg-name="KSA Sports 3" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="⚽ رياضة عربية",KSA Sports 3
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2055
-
-#EXTINF:-1 tvg-name="KSA Sports 4" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="⚽ رياضة عربية",KSA Sports 4
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2056
-
-# ── Thamanya Sports (ثمانية) ─────────
-#EXTINF:-1 tvg-name="ثمانية Sports 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⚽ رياضة عربية",ثمانية Sports 1
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4119
-
-#EXTINF:-1 tvg-name="ثمانية Sports 2" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⚽ رياضة عربية",ثمانية Sports 2
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4120
-
-#EXTINF:-1 tvg-name="ثمانية Sports 3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⚽ رياضة عربية",ثمانية Sports 3
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4239
-
-# ── Shahid Sport ─────────────────────
-#EXTINF:-1 tvg-name="Shahid Sport 1 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="⚽ رياضة عربية",Shahid Sport 1 HD
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4462
-
-#EXTINF:-1 tvg-name="Shahid Sport 2 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="⚽ رياضة عربية",Shahid Sport 2 HD
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4463
-
-#EXTINF:-1 tvg-name="Shahid Sport 3 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="⚽ رياضة عربية",Shahid Sport 3 HD
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4464
-
-#EXTINF:-1 tvg-name="Shahid Sport 4 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="⚽ رياضة عربية",Shahid Sport 4 HD
-http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4465
+#EXTINF:-1 tvg-name="beIN Sports Xtra" tvg-logo="https://i.imgur.com/V562tpO.png" group-title="📺 beIN Sports",beIN Sports Xtra
+https://dc1644a9jazgj.cloudfront.net/beIN_Sports_Xtra_Espanol.m3u8
 
 #=====================================
-# 📰 أخبار عربية
+# ⭐ ثمانية — Thmanyah Sports
+#=====================================
+
+#EXTINF:-1 tvg-id="Thmanyah1.sa" tvg-name="ثمانية 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⭐ ثمانية",ثمانية 1
+https://dflive.app.tc/20.m3u8
+
+#EXTINF:-1 tvg-id="Thmanyah3.sa" tvg-name="ثمانية 3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⭐ ثمانية",ثمانية 3
+https://dflive.app.tc/61.m3u8
+
+#EXTINF:-1 tvg-name="ثمانية Sports 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⭐ ثمانية",ثمانية Sports 1
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4119
+
+#EXTINF:-1 tvg-name="ثمانية Sports 2" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⭐ ثمانية",ثمانية Sports 2
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4120
+
+#EXTINF:-1 tvg-name="ثمانية Sports 3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⭐ ثمانية",ثمانية Sports 3
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4239
+
+#=====================================
+# 🎯 شاهد Sport
+#=====================================
+
+#EXTINF:-1 tvg-name="Shahid Sport 1 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="🎯 شاهد Sport",Shahid Sport 1 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4462
+
+#EXTINF:-1 tvg-name="Shahid Sport 2 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="🎯 شاهد Sport",Shahid Sport 2 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4463
+
+#EXTINF:-1 tvg-name="Shahid Sport 3 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="🎯 شاهد Sport",Shahid Sport 3 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4464
+
+#EXTINF:-1 tvg-name="Shahid Sport 4 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="🎯 شاهد Sport",Shahid Sport 4 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4465
+
+#EXTINF:-1 tvg-id="GoalZone.sa" tvg-name="Goal Zone" tvg-logo="https://shahid.mbc.net/mediaObject/18bf9987-49ab-4c51-bb94-c568efa51db7?height=auto&width=512&croppingPoint=&version=1&type=png" group-title="🎯 شاهد Sport",Goal Zone
+https://shls-live-enc.edgenextcdn.net/out/v1/18cffab0757d448ca6c1a686d330b346/index.m3u8
+
+#=====================================
+# 🇸🇦 رياضة سعودية — KSA Sports
+#=====================================
+
+#EXTINF:-1 tvg-name="KSA Sports 1" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="🇸🇦 رياضة سعودية",KSA Sports 1
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2053
+
+#EXTINF:-1 tvg-name="KSA Sports 2" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="🇸🇦 رياضة سعودية",KSA Sports 2
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2054
+
+#EXTINF:-1 tvg-name="KSA Sports 3" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="🇸🇦 رياضة سعودية",KSA Sports 3
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2055
+
+#EXTINF:-1 tvg-name="KSA Sports 4" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="🇸🇦 رياضة سعودية",KSA Sports 4
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2056
+
+#=====================================
+# 🇦🇪 رياضة إماراتية — AD & Sharjah
+#=====================================
+
+#EXTINF:-1 tvg-id="AbuDhabiSports1.ae" tvg-name="أبوظبي الرياضية 1" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/7/77/AD_Sports_1_HD.png/200px-AD_Sports_1_HD.png" group-title="🇦🇪 رياضة إماراتية",أبوظبي الرياضية 1
+https://admdn1.cdn.mangomolo.com/adsports1/smil:adsports1.stream.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="AbuDhabiSports2.ae" tvg-name="أبوظبي الرياضية 2" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/df/AD_Sports_2_HD.png/200px-AD_Sports_2_HD.png" group-title="🇦🇪 رياضة إماراتية",أبوظبي الرياضية 2
+https://admdn2.cdn.mangomolo.com/adsports2/smil:adsports2.stream.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-id="SharjahSports.ae" tvg-name="رياضة الشارقة" tvg-logo="https://i.imgur.com/CsEElsJ.png" group-title="🇦🇪 رياضة إماراتية",رياضة الشارقة
+https://svs.itworkscdn.net/smc4sportslive/smc4.smil/playlist.m3u8
+
+#=====================================
+# 🇰🇼 رياضة كويتية — Kuwait Sports
+#=====================================
+
+#EXTINF:-1 tvg-id="KTVSport.kw" tvg-name="الكويت الرياضية" tvg-logo="https://i.imgur.com/R1hGX1d.png" group-title="🇰🇼 رياضة كويتية",الكويت الرياضية
+https://kwtspta.cdn.mangomolo.com/sp/smil:sp.stream.smil/chunklist.m3u8
+
+#EXTINF:-1 tvg-id="KTVSportPlus.kw" tvg-name="الكويت الرياضية بلس" tvg-logo="https://i.imgur.com/l4oX0gf.png" group-title="🇰🇼 رياضة كويتية",الكويت الرياضية بلس
+https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8
+
+#=====================================
+# 🌙 رياضة خليجية — Bahrain & Oman
+#=====================================
+
+#EXTINF:-1 tvg-id="BahrainSports1.bh" tvg-name="رياضة البحرين 1" tvg-logo="https://i.imgur.com/fBpLsbC.png" group-title="🌙 رياضة خليجية",رياضة البحرين 1
+https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8
+
+#EXTINF:-1 tvg-id="BahrainSports2.bh" tvg-name="رياضة البحرين 2" tvg-logo="https://i.imgur.com/ZkuZmIo.png" group-title="🌙 رياضة خليجية",رياضة البحرين 2
+https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8
+
+#EXTINF:-1 tvg-id="OmanSportsTV.om" tvg-name="عمان الرياضية" tvg-logo="https://i.imgur.com/1omi7p8.png" group-title="🌙 رياضة خليجية",عمان الرياضية
+https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8
+
+#=====================================
+# 📰 أخبار
 #=====================================
 
 #EXTINF:-1 tvg-id="AlJazeera.qa" tvg-name="الجزيرة" tvg-logo="https://i.imgur.com/7bRVpnu.png" group-title="📰 أخبار",الجزيرة
@@ -170,8 +183,14 @@ https://shd-gcp-live.edgenextcdn.net/live/bitmovin-hadath/2ff87ec4c2f3ede35295a2
 #EXTINF:-1 tvg-name="الشرق للأخبار" tvg-logo="https://i.imgur.com/bqRC3sl.png" group-title="📰 أخبار",الشرق للأخبار
 https://live-news.asharq.com/asharq.m3u8
 
+#EXTINF:-1 tvg-name="الشرق الوثائقية" tvg-logo="https://i.imgur.com/v6VsFEt.png" group-title="📰 أخبار",الشرق الوثائقية
+https://svs.itworkscdn.net/asharqdocumentarylive/asharqdocumentary.smil/playlist_dvr.m3u8
+
 #EXTINF:-1 tvg-name="العربي" tvg-logo="https://i.imgur.com/yHqJMcf.png" group-title="📰 أخبار",العربي
 https://live.kwikmotion.com/alaraby1live/alaraby_abr/playlist.m3u8
+
+#EXTINF:-1 tvg-name="العربي 2" tvg-logo="https://i.imgur.com/yHqJMcf.png" group-title="📰 أخبار",العربي 2
+https://live.kwikmotion.com/alaraby2live/alaraby2.smil/playlist.m3u8
 
 #=====================================
 # 📺 MBC Group
@@ -193,10 +212,46 @@ https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-masr-drama/567b703c19ede6
 https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-plus-drama/e37251ec2aac8f6c98f75cd0fa37cd28/index.m3u8
 
 #=====================================
-# 🎬 أفلام ومسلسلات
+# 🇸🇦 قنوات سعودية
 #=====================================
 
-#EXTINF:-1 tvg-name="أفلام" tvg-logo="https://i.imgur.com/cTLj7Yt.png" group-title="🎬 أفلام",Aflam
+#EXTINF:-1 tvg-name="السعودية" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="🇸🇦 قنوات سعودية",السعودية
+https://shd-gcp-live.edgenextcdn.net/live/bitmovin-saudi-tv/2ad66056b51fd8c1b624854623112e43/index.m3u8
+
+#EXTINF:-1 tvg-name="السعودية الآن" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="🇸🇦 قنوات سعودية",السعودية الآن
+https://shd-gcp-live.edgenextcdn.net/live/bitmovin-ksa-now/71ed3aa814c643306c0a8bc4fcc7d17f/index.m3u8
+
+#EXTINF:-1 tvg-name="SBC" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="🇸🇦 قنوات سعودية",SBC
+https://shd-gcp-live.edgenextcdn.net/live/bitmovin-sbc/90e09c0c28db26435799b4a14892a167/index.m3u8
+
+#=====================================
+# 🇶🇦 قنوات قطرية
+#=====================================
+
+#EXTINF:-1 tvg-name="قناة قطر" tvg-logo="https://i.imgur.com/N5RB4sp.png" group-title="🇶🇦 قنوات قطرية",قناة قطر
+https://live.kwikmotion.com/qtv1live/qtv1.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-name="قناة قطر 2" tvg-logo="https://i.imgur.com/N5RB4sp.png" group-title="🇶🇦 قنوات قطرية",قناة قطر 2
+https://live.kwikmotion.com/qtv2live/qtv2.smil/playlist.m3u8
+
+#EXTINF:-1 tvg-name="الريان" tvg-logo="https://i.imgur.com/Ts3RjTV.png" group-title="🇶🇦 قنوات قطرية",الريان
+https://alrayyancdn.vidgyor.com/pub-noalrayy3pwz0l/liveabr/playlist_dvr.m3u8
+
+#=====================================
+# 🇰🇼 قنوات كويتية
+#=====================================
+
+#EXTINF:-1 tvg-name="الكويت 1" tvg-logo="https://i.imgur.com/R1hGX1d.png" group-title="🇰🇼 قنوات كويتية",الكويت 1
+https://kwtktv1ta.cdn.mangomolo.com/ktv1/smil:ktv1.stream.smil/chunklist.m3u8
+
+#EXTINF:-1 tvg-name="الكويت 2" tvg-logo="https://i.imgur.com/R1hGX1d.png" group-title="🇰🇼 قنوات كويتية",الكويت 2
+https://kwtktv2ta.cdn.mangomolo.com/ktv2/smil:ktv2.stream.smil/chunklist.m3u8
+
+#=====================================
+# 🎬 أفلام
+#=====================================
+
+#EXTINF:-1 tvg-name="أفلام" tvg-logo="https://i.imgur.com/cTLj7Yt.png" group-title="🎬 أفلام",أفلام
 https://shd-amg-fast.edgenextcdn.net/tx001/playlist.m3u8
 
 #EXTINF:-1 tvg-name="أفلام أكشن" tvg-logo="https://i.imgur.com/NIVhISa.png" group-title="🎬 أفلام",أفلام أكشن
@@ -205,14 +260,18 @@ https://shd-amg-fast.edgenextcdn.net/tx011/playlist.m3u8
 #EXTINF:-1 tvg-name="أفلام إثارة" tvg-logo="https://i.imgur.com/JWihdcl.png" group-title="🎬 أفلام",أفلام إثارة
 https://shls-live-enc.edgenextcdn.net/out/v1/f6d718e841f8442f8374de47f18c93a7/index.m3u8
 
-#EXTINF:-1 tvg-name="باب الحارة" tvg-logo="https://i.imgur.com/QtlnZbq.png" group-title="🎬 مسلسلات",باب الحارة
+#=====================================
+# 🎭 مسلسلات
+#=====================================
+
+#EXTINF:-1 tvg-name="باب الحارة" tvg-logo="https://i.imgur.com/QtlnZbq.png" group-title="🎭 مسلسلات",باب الحارة
 https://shd-amg-fast.edgenextcdn.net/tx010/playlist.m3u8
 
-#EXTINF:-1 tvg-name="مرايا" tvg-logo="https://shahid.mbc.net/mediaObject/d089a559-4f41-4def-a786-f98fcfbf0464" group-title="🎬 مسلسلات",مرايا
+#EXTINF:-1 tvg-name="مرايا" tvg-logo="https://shahid.mbc.net/mediaObject/d089a559-4f41-4def-a786-f98fcfbf0464" group-title="🎭 مسلسلات",مرايا
 https://shd-amg-fast.edgenextcdn.net/tx008/playlist.m3u8
 
 #=====================================
-# 🎵 موسيقى وترفيه
+# 🎵 موسيقى
 #=====================================
 
 #EXTINF:-1 tvg-name="فيروز" tvg-logo="https://shahid.mbc.net/mediaObject/f809d51c-e83d-43c9-8236-78731c2216ad" group-title="🎵 موسيقى",فيروز
@@ -220,37 +279,3 @@ https://shls-live-enc.edgenextcdn.net/out/v1/bba3ef00b71b470fa955d93a9ca8c277/in
 
 #EXTINF:-1 tvg-name="طرب" tvg-logo="https://i.imgur.com/cTLj7Yt.png" group-title="🎵 موسيقى",طرب
 https://shd-amg-fast-btpls.shahid.net/tx002/playlist.m3u8
-
-#=====================================
-# 📡 قنوات عربية عامة
-#=====================================
-
-#EXTINF:-1 tvg-name="السعودية" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="📡 قنوات عامة",السعودية
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-saudi-tv/2ad66056b51fd8c1b624854623112e43/index.m3u8
-
-#EXTINF:-1 tvg-name="السعودية الآن" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="📡 قنوات عامة",السعودية الآن
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-ksa-now/71ed3aa814c643306c0a8bc4fcc7d17f/index.m3u8
-
-#EXTINF:-1 tvg-name="SBC" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="📡 قنوات عامة",SBC
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-sbc/90e09c0c28db26435799b4a14892a167/index.m3u8
-
-#EXTINF:-1 tvg-name="قناة قطر" tvg-logo="https://i.imgur.com/N5RB4sp.png" group-title="📡 قنوات عامة",قناة قطر
-https://live.kwikmotion.com/qtv1live/qtv1.smil/playlist.m3u8
-
-#EXTINF:-1 tvg-name="قناة قطر 2" tvg-logo="https://i.imgur.com/N5RB4sp.png" group-title="📡 قنوات عامة",قناة قطر 2
-https://live.kwikmotion.com/qtv2live/qtv2.smil/playlist.m3u8
-
-#EXTINF:-1 tvg-name="الريان" tvg-logo="https://i.imgur.com/Ts3RjTV.png" group-title="📡 قنوات عامة",الريان
-https://alrayyancdn.vidgyor.com/pub-noalrayy3pwz0l/liveabr/playlist_dvr.m3u8
-
-#EXTINF:-1 tvg-name="الشرق الوثائقية" tvg-logo="https://i.imgur.com/v6VsFEt.png" group-title="📡 قنوات عامة",الشرق الوثائقية
-https://svs.itworkscdn.net/asharqdocumentarylive/asharqdocumentary.smil/playlist_dvr.m3u8
-
-#EXTINF:-1 tvg-name="الكويت 1" tvg-logo="https://i.imgur.com/R1hGX1d.png" group-title="📡 قنوات عامة",الكويت 1
-https://kwtktv1ta.cdn.mangomolo.com/ktv1/smil:ktv1.stream.smil/chunklist.m3u8
-
-#EXTINF:-1 tvg-name="الكويت 2" tvg-logo="https://i.imgur.com/R1hGX1d.png" group-title="📡 قنوات عامة",الكويت 2
-https://kwtktv2ta.cdn.mangomolo.com/ktv2/smil:ktv2.stream.smil/chunklist.m3u8
-
-#EXTINF:-1 tvg-name="العربي 2" tvg-logo="https://i.imgur.com/yHqJMcf.png" group-title="📡 قنوات عامة",العربي 2
-https://live.kwikmotion.com/alaraby2live/alaraby2.smil/playlist.m3u8
