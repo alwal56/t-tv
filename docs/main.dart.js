@@ -90732,7 +90732,7 @@ var $async$vs=A.F(function(a,b){if(a===1)return A.H(b,r)
 while(true)switch(s){case 0:q.c=A.aWA()
 p=A.fZ(J.bj($.fr.aO().a,"default_playlists_version"))
 if(p==null)p=0
-s=q.c.length===0||p!==4?2:4
+s=q.c.length===0||p!==5?2:4
 break
 case 2:s=5
 return A.E(q.nF(),$async$vs)
@@ -90844,7 +90844,7 @@ o.c=f
 s=13
 return A.E(A.we(f),$async$nF)
 case 13:s=14
-return A.E($.fr.aO().mc("Int","default_playlists_version",4),$async$nF)
+return A.E($.fr.aO().mc("Int","default_playlists_version",5),$async$nF)
 case 14:o.f=B.hl
 s=11
 break
