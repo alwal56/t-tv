@@ -78,6 +78,70 @@ https://shls-live-enc.edgenextcdn.net/out/v1/18cffab0757d448ca6c1a686d330b346/in
 #EXTINF:-1 tvg-name="beIN SPORTS Xtra" tvg-logo="https://i.imgur.com/V562tpO.png" group-title="⚽ رياضة عربية",beIN SPORTS Xtra
 https://dc1644a9jazgj.cloudfront.net/beIN_Sports_Xtra_Espanol.m3u8
 
+# ── beIN Sports HD ───────────────────
+#EXTINF:-1 tvg-name="beIN Sports 1 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 1 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/46
+
+#EXTINF:-1 tvg-name="beIN Sports 2 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 2 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/47
+
+#EXTINF:-1 tvg-name="beIN Sports 3 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 3 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/49
+
+#EXTINF:-1 tvg-name="beIN Sports 4 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 4 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/50
+
+#EXTINF:-1 tvg-name="beIN Sports 5 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 5 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/51
+
+#EXTINF:-1 tvg-name="beIN Sports 6 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 6 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/52
+
+#EXTINF:-1 tvg-name="beIN Sports 7 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 7 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/53
+
+#EXTINF:-1 tvg-name="beIN Sports 8 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 8 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/54
+
+#EXTINF:-1 tvg-name="beIN Sports 9 HD" tvg-logo="https://i.imgur.com/yMBhEt5.png" group-title="⚽ رياضة عربية",beIN Sports 9 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4034
+
+# ── SSC (Saudi Sports Company) ───────
+#EXTINF:-1 tvg-name="KSA Sports 1" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="⚽ رياضة عربية",KSA Sports 1
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2053
+
+#EXTINF:-1 tvg-name="KSA Sports 2" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="⚽ رياضة عربية",KSA Sports 2
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2054
+
+#EXTINF:-1 tvg-name="KSA Sports 3" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="⚽ رياضة عربية",KSA Sports 3
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2055
+
+#EXTINF:-1 tvg-name="KSA Sports 4" tvg-logo="https://i.imgur.com/GRQTndk.png" group-title="⚽ رياضة عربية",KSA Sports 4
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/2056
+
+# ── Thamanya Sports (ثمانية) ─────────
+#EXTINF:-1 tvg-name="ثمانية Sports 1" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⚽ رياضة عربية",ثمانية Sports 1
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4119
+
+#EXTINF:-1 tvg-name="ثمانية Sports 2" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⚽ رياضة عربية",ثمانية Sports 2
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4120
+
+#EXTINF:-1 tvg-name="ثمانية Sports 3" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Thmanyah_Logo.svg/300px-Thmanyah_Logo.svg.png" group-title="⚽ رياضة عربية",ثمانية Sports 3
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4239
+
+# ── Shahid Sport ─────────────────────
+#EXTINF:-1 tvg-name="Shahid Sport 1 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="⚽ رياضة عربية",Shahid Sport 1 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4462
+
+#EXTINF:-1 tvg-name="Shahid Sport 2 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="⚽ رياضة عربية",Shahid Sport 2 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4463
+
+#EXTINF:-1 tvg-name="Shahid Sport 3 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="⚽ رياضة عربية",Shahid Sport 3 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4464
+
+#EXTINF:-1 tvg-name="Shahid Sport 4 HD" tvg-logo="https://i.imgur.com/BcXASJp.png" group-title="⚽ رياضة عربية",Shahid Sport 4 HD
+http://ugeen.live:8080/Ugeen_AqBvJJ/Gn9k7a/4465
+
 #=====================================
 # 📰 أخبار عربية
 #=====================================
