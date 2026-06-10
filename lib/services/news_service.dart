@@ -12,12 +12,25 @@ class _RssSource {
 class NewsService {
   static const _proxy = 'https://corsproxy.io/?';
 
-  /// Confirmed working Arabic + English football RSS feeds
+  /// Arabic sports RSS feeds (football-focused)
   static const _sources = [
-    _RssSource('BBC عربي', 'https://feeds.bbci.co.uk/arabic/sport/rss.xml'),
-    _RssSource('فرانس 24', 'https://www.france24.com/ar/sport/rss'),
-    _RssSource('Sky Sports', 'https://www.skysports.com/rss/12040'),
+    _RssSource('BBC عربي',  'https://feeds.bbci.co.uk/arabic/sport/rss.xml'),
+    _RssSource('فرانس 24',  'https://www.france24.com/ar/sport/rss'),
+    _RssSource('فيلجول',    'https://www.filgoal.com/feed/'),
   ];
+
+  /// Football/sports keywords used to filter non-sports articles
+  static const _sportsKeywords = [
+    'كرة', 'مباراة', 'دوري', 'هدف', 'لاعب', 'فريق', 'مدرب', 'بطولة',
+    'كأس', 'منتخب', 'ملعب', 'تهديف', 'انتقال', 'ضم', 'صفقة',
+    'ريال', 'برشلونة', 'ليفربول', 'النصر', 'الهلال', 'الاتحاد',
+    'football', 'soccer', 'goal', 'match', 'league', 'transfer',
+  ];
+
+  static bool _isSports(String title, String description) {
+    final text = '${title.toLowerCase()} ${description.toLowerCase()}';
+    return _sportsKeywords.any((k) => text.contains(k.toLowerCase()));
+  }
 
   static String _proxyUrl(String url) =>
       kIsWeb ? '$_proxy${Uri.encodeComponent(url)}' : url;
@@ -52,22 +65,28 @@ class NewsService {
     final doc = XmlDocument.parse(body);
     final items = doc.findAllElements('item');
 
-    return items.map((item) {
-      final title = _text(item, 'title');
-      final link  = _text(item, 'link');
-      final desc  = _text(item, 'description');
-      final date  = _parseDate(_text(item, 'pubDate'));
-      final img   = _extractImage(item);
+    return items
+        .map((item) {
+          final title = _text(item, 'title');
+          final link  = _text(item, 'link');
+          final desc  = _text(item, 'description');
+          final date  = _parseDate(_text(item, 'pubDate'));
+          final img   = _extractImage(item);
 
-      return NewsArticle.fromRssItem(
-        title: title,
-        description: desc.isNotEmpty ? desc : null,
-        link: link,
-        imageUrl: img,
-        source: src.name,
-        pubDate: date,
-      );
-    }).where((a) => a.title.isNotEmpty && a.url.isNotEmpty).toList();
+          return NewsArticle.fromRssItem(
+            title: title,
+            description: desc.isNotEmpty ? desc : null,
+            link: link,
+            imageUrl: img,
+            source: src.name,
+            pubDate: date,
+          );
+        })
+        .where((a) =>
+            a.title.isNotEmpty &&
+            a.url.isNotEmpty &&
+            _isSports(a.title, a.description ?? ''))
+        .toList();
   }
 
   static String _text(XmlElement item, String tag) {

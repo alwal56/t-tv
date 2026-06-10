@@ -5,20 +5,18 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Required for GitHub Pages Actions deployment
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: Deploy
+  build-and-deploy:
+    name: Build & Deploy
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -27,14 +25,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.32.1'
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build web
+        run: flutter build web --release --web-renderer canvaskit
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload root — this is where the Flutter web build lives
-          path: '.'
+          path: build/web
 
       - name: Deploy to GitHub Pages
         id: deployment

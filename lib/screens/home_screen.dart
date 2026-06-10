@@ -23,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _searchController = TextEditingController();
-  int _currentTab = 0; // 0=Home, 1=Matches, 2=News, 3=Favorites, 4=Settings
+  int _currentTab = 0; // 0=البث, 1=المباريات, 2=الأخبار
 
   @override
   void initState() {
@@ -388,8 +388,6 @@ class _HomeScreenState extends State<HomeScreen> {
           _buildHomeTab(),
           const MatchesScreen(),
           const NewsScreen(),
-          _buildFavoritesTab(),
-          _buildSearchTab(),
         ],
       ),
       bottomNavigationBar: _buildBottomNav(),
@@ -414,7 +412,7 @@ class _HomeScreenState extends State<HomeScreen> {
         unselectedLabelStyle: const TextStyle(fontSize: 11),
         type: BottomNavigationBarType.fixed,
         onTap: (i) {
-          if (i == 4) {
+          if (i == 3) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const SettingsScreen()),
@@ -430,8 +428,6 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: Icon(Icons.sports_soccer_rounded), label: 'المباريات'),
           BottomNavigationBarItem(
               icon: Icon(Icons.article_rounded), label: 'الأخبار'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_rounded), label: 'المفضلة'),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings_rounded), label: 'الإعدادات'),
         ],
@@ -669,13 +665,6 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           _buildLogoRow(),
           const Spacer(),
-          // Search icon → go to search tab
-          GestureDetector(
-            onTap: () => setState(() => _currentTab = 1),
-            child: const Icon(Icons.search_rounded,
-                color: Colors.white, size: 26),
-          ),
-          const SizedBox(width: 14),
           // Add source
           GestureDetector(
             onTap: _showAddSourceSheet,
