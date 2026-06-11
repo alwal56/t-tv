@@ -67,6 +67,15 @@ https://shd-gcp-live.edgenextcdn.net/live/bitmovin-hadath/2ff87ec4c2f3ede35295a2
 #EXTINF:-1 tvg-name="الشرق للأخبار" tvg-logo="https://i.imgur.com/bqRC3sl.png" group-title="📰 أخبار",الشرق للأخبار
 https://live-news.asharq.com/asharq.m3u8
 
+#EXTINF:-1 tvg-id="AlJazeeraMubasher.qa" tvg-name="الجزيرة مباشر" tvg-logo="https://upload.wikimedia.org/wikipedia/en/9/90/Al_Jazeera_Mubasher_logo.png" group-title="📰 أخبار",الجزيرة مباشر
+https://live-hls-web-ajm.getaj.net/AJM/index.m3u8
+
+#EXTINF:-1 tvg-id="SkyNewsArabia.ae" tvg-name="سكاي نيوز عربية" tvg-logo="https://i.imgur.com/SvjU4h6.png" group-title="📰 أخبار",سكاي نيوز عربية
+https://stream.skynewsarabia.com/hls/sna.m3u8
+
+#EXTINF:-1 tvg-id="AlGhadTV.eg" tvg-name="الغد" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/0/06/AlGhad_TV.png" group-title="📰 أخبار",الغد
+https://eazyvwqssi.erbvr.com/alghadtv/alghadtv.m3u8
+
 #=====================================
 # 📺 MBC Group
 #=====================================
@@ -79,6 +88,18 @@ https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-4/24f134f1cd63db9346439e9
 
 #EXTINF:-1 tvg-id="MBC5.ae" tvg-name="MBC 5" tvg-logo="https://i.imgur.com/fRWaDyF.png" group-title="📺 MBC",MBC 5
 https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-5/ee6b000cee0629411b666ab26cb13e9b/index.m3u8
+
+#EXTINF:-1 tvg-id="MBC3.ae" tvg-name="MBC 3" tvg-logo="https://i.imgur.com/PVt8OPN.png" group-title="📺 MBC",MBC 3
+https://shls-mbc3-prod-dub.shahid.net/out/v1/d5bbe570e1514d3d9a142657d33d85e6/index.m3u8
+
+#EXTINF:-1 tvg-id="MBCDrama.ae" tvg-name="MBC دراما" tvg-logo="https://i.imgur.com/g5PWnqp.png" group-title="📺 MBC",MBC دراما
+https://mbc1-enc.edgenextcdn.net/out/v1/b0b3a0e6750d4408bb86d703d5feffd1/index.m3u8
+
+#EXTINF:-1 tvg-id="MBCMasr1.eg" tvg-name="MBC مصر" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/7/7c/MBC_Masr_Logo.png" group-title="📺 MBC",MBC مصر
+https://mbc1-enc.edgenextcdn.net/out/v1/d5036cabf11e45bf9d0db410ca135c18/index.m3u8
+
+#EXTINF:-1 tvg-id="MBCBollywood.ae" tvg-name="MBC بوليوود" tvg-logo="https://i.imgur.com/TTAGFHG.png" group-title="📺 MBC",MBC بوليوود
+https://shls-mbcbollywood-prod-dub.shahid.net/out/v1/a79c9d7ef2a64a54a64d5c4567b3462a/index.m3u8
 
 #=====================================
 # 🎬 أفلام ومسلسلات - شاهد
@@ -106,6 +127,16 @@ https://shd-amg-fast.edgenextcdn.net/tx008/playlist.m3u8
 #EXTINF:-1 tvg-name="فيروز" tvg-logo="https://shahid.mbc.net/mediaObject/f809d51c-e83d-43c9-8236-78731c2216ad" group-title="🎵 موسيقى",فيروز
 https://shls-live-enc.edgenextcdn.net/out/v1/bba3ef00b71b470fa955d93a9ca8c277/index.m3u8
 
+#EXTINF:-1 tvg-id="Wanasah.ae" tvg-name="وناسة" tvg-logo="https://i.imgur.com/nLtiXNf.png" group-title="🎵 موسيقى",وناسة
+https://shls-wanasah-prod-dub.shahid.net/out/v1/c84ef3128e564b74a6a796e8b6287de6/index.m3u8
+
+#=====================================
+# 👶 أطفال
+#=====================================
+
+#EXTINF:-1 tvg-id="CartoonNetworkArabic.ae" tvg-name="كرتون نتورك" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/b/bb/Cartoon_Network_Arabic_logo.png" group-title="👶 أطفال",كرتون نتورك بالعربية
+https://shls-cartoon-net-prod-dub.shahid.net/out/v1/dc4aa87372374325a66be458f29eab0f/index.m3u8
+
 #=====================================
 # 📡 قنوات سعودية عامة
 #=====================================
@@ -121,3 +152,6 @@ https://live.kwikmotion.com/qtv1live/qtv1.smil/playlist.m3u8
 
 #EXTINF:-1 tvg-name="الريان" tvg-logo="https://i.imgur.com/Ts3RjTV.png" group-title="📡 قنوات سعودية",الريان
 https://alrayyancdn.vidgyor.com/pub-noalrayy3pwz0l/liveabr/playlist_dvr.m3u8
+
+#EXTINF:-1 tvg-id="SharjahTV.ae" tvg-name="قناة الشارقة" tvg-logo="https://i.imgur.com/Oz2bPOt.png" group-title="📡 قنوات سعودية",قناة الشارقة
+https://svs.itworkscdn.net/smc1live/smc1.smil/playlist.m3u8
