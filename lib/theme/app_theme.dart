@@ -13,6 +13,12 @@ class AppTheme {
   static const Color textPrimary = Colors.white;
   static const Color textSecondary = Color(0xFF8E8E93);
 
+  // ── Mortada-style sport palette (category cards) ──
+  static const Color sportGreen = Color(0xFF1DB954);   // pitch green
+  static const Color sportOrange = Color(0xFFFF7A18);  // fiery action
+  static const Color sportPurple = Color(0xFFB14CFF);  // variety
+  static const Color gold = Color(0xFFFFC93C);         // trophy gold
+
   static ThemeData get dark => ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,

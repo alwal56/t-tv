@@ -9,7 +9,9 @@ import '../services/news_service.dart';
 import '../theme/app_theme.dart';
 
 class NewsScreen extends StatefulWidget {
-  const NewsScreen({super.key});
+  /// التبويب الافتراضي: 0 = الأخبار، 1 = الانتقالات
+  final int initialTab;
+  const NewsScreen({super.key, this.initialTab = 0});
 
   @override
   State<NewsScreen> createState() => _NewsScreenState();
@@ -23,7 +25,11 @@ class _NewsScreenState extends State<NewsScreen>
   @override
   void initState() {
     super.initState();
-    _tabs = TabController(length: 2, vsync: this);
+    _tabs = TabController(
+      length: 2,
+      vsync: this,
+      initialIndex: widget.initialTab.clamp(0, 1),
+    );
     _future = NewsService.getAll();
   }
 

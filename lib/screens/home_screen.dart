@@ -13,6 +13,7 @@ import 'player_screen.dart';
 import 'settings_screen.dart';
 import 'matches_screen.dart';
 import 'news_screen.dart';
+import 'mortada_home.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -41,8 +42,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isWide = MediaQuery.of(context).size.width > 800;
-    return isWide ? _buildWideLayout() : _buildMobileLayout();
+    // نمط مرتضى للهاتف — يُستخدم لكل المقاسات (في الديسكتوب يُوسَّط بعرض محدود)
+    final width = MediaQuery.of(context).size.width;
+    final layout = _buildMobileLayout();
+    if (width <= 640) return layout;
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: layout,
+        ),
+      ),
+    );
   }
 
   // ─── Wide Layout (Desktop / Web) ────────────────────────────────────────────
@@ -413,7 +425,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: IndexedStack(
         index: _currentTab,
         children: [
-          _buildHomeTab(),
+          const MortadaHome(),
           const MatchesScreen(),
           const NewsScreen(),
         ],
@@ -451,7 +463,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         items: const [
           BottomNavigationBarItem(
-              icon: Icon(Icons.live_tv_rounded), label: 'البث'),
+              icon: Icon(Icons.home_rounded), label: 'الرئيسية'),
           BottomNavigationBarItem(
               icon: Icon(Icons.sports_soccer_rounded), label: 'المباريات'),
           BottomNavigationBarItem(
