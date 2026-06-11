@@ -8,20 +8,18 @@ import '../providers/player_provider.dart';
 import '../theme/app_theme.dart';
 import 'player_screen.dart';
 
-/// شاشة تصفّح القنوات بنمط مرتضى — خلفية ملوّنة + شبكة بطاقات.
+/// شاشة تصفّح القنوات بنمط مرتضى — مقسّمة لفئات داخلية بأيقونات.
 /// [groupFilters] قائمة كلمات؛ تُعرض القنوات التي تحتوي مجموعتها أياً منها.
 /// إذا كانت فارغة تُعرض كل القنوات.
 class ChannelsScreen extends StatefulWidget {
   final String title;
   final Color accent;
-  final String? bgImage;
   final List<String> groupFilters;
 
   const ChannelsScreen({
     super.key,
     required this.title,
     required this.accent,
-    this.bgImage,
     this.groupFilters = const [],
   });
 
@@ -32,6 +30,7 @@ class ChannelsScreen extends StatefulWidget {
 class _ChannelsScreenState extends State<ChannelsScreen> {
   final _searchCtrl = TextEditingController();
   String _query = '';
+  String? _selectedGroup; // null = كل الفئات (أقسام)
 
   @override
   void dispose() {
@@ -53,21 +52,71 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
     );
   }
 
+  /// أيقونة الفئة حسب اسم المجموعة
+  IconData _groupIcon(String group) {
+    final g = group;
+    if (g.contains('كأس') || g.contains('الكأس')) return Icons.emoji_events_rounded;
+    if (g.contains('رياض') || g.contains('sport')) return Icons.sports_soccer_rounded;
+    if (g.contains('أفلام') || g.contains('فلم')) return Icons.movie_rounded;
+    if (g.contains('مسلسل')) return Icons.theaters_rounded;
+    if (g.contains('أخبار') || g.contains('خبر')) return Icons.newspaper_rounded;
+    if (g.contains('MBC')) return Icons.tv_rounded;
+    if (g.contains('موسيق')) return Icons.music_note_rounded;
+    if (g.contains('أطفال') || g.contains('طفل') || g.contains('كرتون')) return Icons.child_care_rounded;
+    if (g.contains('سعود') || g.contains('عربي') || g.contains('قطر')) return Icons.public_rounded;
+    return Icons.live_tv_rounded;
+  }
+
+  /// اسم الفئة بدون الإيموجي البادئ
+  String _cleanName(String group) {
+    return group.replaceAll(RegExp(r'^[^\p{L}]+', unicode: true), '').trim();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.surface,
       body: Stack(
         children: [
-          // خلفية ملوّنة خافتة
           Positioned.fill(child: _buildBackdrop()),
           SafeArea(
-            child: Column(
-              children: [
-                _buildHeader(),
-                _buildSearch(),
-                Expanded(child: _buildGrid()),
-              ],
+            child: Consumer2<ChannelsProvider, PlayerProvider>(
+              builder: (_, channelsP, playerP, __) {
+                final loading = channelsP.state == LoadingState.loading &&
+                    channelsP.allChannels.isEmpty;
+
+                // قنوات هذا القسم بعد الفلترة بالكلمات + البحث
+                var pool = channelsP.allChannels.where(_matchesGroup).toList();
+                if (_query.isNotEmpty) {
+                  pool = pool
+                      .where((c) => c.name.toLowerCase().contains(_query))
+                      .toList();
+                }
+
+                // تجميع حسب المجموعة
+                final groups = <String, List<Channel>>{};
+                for (final ch in pool) {
+                  groups.putIfAbsent(ch.group ?? 'عام', () => []).add(ch);
+                }
+                final groupNames = groups.keys.toList();
+
+                return Column(
+                  children: [
+                    _buildHeader(),
+                    _buildSearch(),
+                    if (!loading && groupNames.length > 1)
+                      _buildChips(groupNames),
+                    Expanded(
+                      child: loading
+                          ? _buildLoading(channelsP)
+                          : pool.isEmpty
+                              ? _buildEmpty()
+                              : _buildContent(groups, groupNames, playerP,
+                                  channelsP),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ],
@@ -125,7 +174,7 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
 
   Widget _buildSearch() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 4, 16, 10),
+      padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
       child: TextField(
         controller: _searchCtrl,
         onChanged: (v) => setState(() => _query = v.trim().toLowerCase()),
@@ -150,81 +199,193 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
     );
   }
 
-  Widget _buildGrid() {
-    return Consumer2<ChannelsProvider, PlayerProvider>(
-      builder: (_, channelsP, playerP, __) {
-        if (channelsP.state == LoadingState.loading &&
-            channelsP.allChannels.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const CircularProgressIndicator(color: AppTheme.accent),
-                const SizedBox(height: 14),
-                Text(
-                  channelsP.loadingLabel.isNotEmpty
-                      ? channelsP.loadingLabel
-                      : 'جاري التحميل...',
-                  style: const TextStyle(
-                      color: AppTheme.textSecondary, fontSize: 13),
-                ),
-              ],
+  // ── شريط أيقونات الفئات ──
+  Widget _buildChips(List<String> groupNames) {
+    final chips = <Widget>[
+      _chip(label: 'الكل', icon: Icons.grid_view_rounded, group: null),
+      ...groupNames.map((g) =>
+          _chip(label: _cleanName(g), icon: _groupIcon(g), group: g)),
+    ];
+    return SizedBox(
+      height: 44,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        children: chips,
+      ),
+    );
+  }
+
+  Widget _chip({required String label, required IconData icon, String? group}) {
+    final selected = _selectedGroup == group;
+    return Padding(
+      padding: const EdgeInsets.only(right: 8),
+      child: GestureDetector(
+        onTap: () => setState(() => _selectedGroup = group),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+          decoration: BoxDecoration(
+            color: selected
+                ? widget.accent.withOpacity(0.20)
+                : const Color(0xFF1A1A1C),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(
+              color: selected ? widget.accent : Colors.white12,
+              width: selected ? 1.5 : 1,
             ),
-          );
-        }
-
-        var list = channelsP.allChannels.where(_matchesGroup).toList();
-        if (_query.isNotEmpty) {
-          list = list
-              .where((c) => c.name.toLowerCase().contains(_query))
-              .toList();
-        }
-
-        if (list.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.tv_off_rounded,
-                    size: 60, color: AppTheme.textSecondary.withOpacity(0.4)),
-                const SizedBox(height: 12),
-                const Text('لا توجد قنوات',
-                    style: TextStyle(color: AppTheme.textSecondary)),
-              ],
-            ),
-          );
-        }
-
-        final width = MediaQuery.of(context).size.width;
-        final cols = width > 1100
-            ? 6
-            : width > 800
-                ? 5
-                : width > 500
-                    ? 4
-                    : 3;
-
-        return GridView.builder(
-          padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: cols,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            childAspectRatio: 0.78,
           ),
-          itemCount: list.length,
-          itemBuilder: (_, i) {
-            final ch = list[i];
-            return _ChannelCard(
-              channel: ch,
-              accent: widget.accent,
-              isPlaying: playerP.currentChannel?.id == ch.id,
-              onTap: () => _play(ch, playerP),
-              onFav: () => channelsP.toggleFavorite(ch),
-            );
-          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon,
+                  size: 15,
+                  color: selected ? widget.accent : AppTheme.textSecondary),
+              const SizedBox(width: 6),
+              Text(
+                label,
+                style: TextStyle(
+                  color: selected ? widget.accent : AppTheme.textSecondary,
+                  fontSize: 12.5,
+                  fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildContent(
+    Map<String, List<Channel>> groups,
+    List<String> groupNames,
+    PlayerProvider playerP,
+    ChannelsProvider channelsP,
+  ) {
+    // فئة محدّدة → شبكة واحدة
+    if (_selectedGroup != null && groups.containsKey(_selectedGroup)) {
+      return _grid(groups[_selectedGroup]!, playerP, channelsP,
+          padding: const EdgeInsets.fromLTRB(16, 6, 16, 24));
+    }
+
+    // كل الفئات → أقسام بعناوين أيقونية
+    return ListView(
+      padding: const EdgeInsets.only(bottom: 24),
+      children: [
+        for (final g in groupNames) ...[
+          _sectionHeader(g, groups[g]!.length),
+          _grid(groups[g]!, playerP, channelsP,
+              padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+              shrinkWrap: true),
+        ],
+      ],
+    );
+  }
+
+  Widget _sectionHeader(String group, int count) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+      child: Row(
+        children: [
+          Container(
+            width: 34,
+            height: 34,
+            decoration: BoxDecoration(
+              color: widget.accent.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(9),
+            ),
+            child: Icon(_groupIcon(group), color: widget.accent, size: 18),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              _cleanName(group),
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Text('$count قناة',
+              style: TextStyle(
+                  color: widget.accent.withOpacity(0.9), fontSize: 12)),
+        ],
+      ),
+    );
+  }
+
+  Widget _grid(
+    List<Channel> list,
+    PlayerProvider playerP,
+    ChannelsProvider channelsP, {
+    required EdgeInsets padding,
+    bool shrinkWrap = false,
+  }) {
+    final width = MediaQuery.of(context).size.width;
+    final cols = width > 1100
+        ? 6
+        : width > 800
+            ? 5
+            : width > 500
+                ? 4
+                : 3;
+    return GridView.builder(
+      padding: padding,
+      shrinkWrap: shrinkWrap,
+      physics: shrinkWrap ? const NeverScrollableScrollPhysics() : null,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: cols,
+        mainAxisSpacing: 12,
+        crossAxisSpacing: 12,
+        childAspectRatio: 0.78,
+      ),
+      itemCount: list.length,
+      itemBuilder: (_, i) {
+        final ch = list[i];
+        return _ChannelCard(
+          channel: ch,
+          accent: widget.accent,
+          isPlaying: playerP.currentChannel?.id == ch.id,
+          onTap: () => _play(ch, playerP),
+          onFav: () => channelsP.toggleFavorite(ch),
         );
       },
+    );
+  }
+
+  Widget _buildLoading(ChannelsProvider channelsP) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const CircularProgressIndicator(color: AppTheme.accent),
+          const SizedBox(height: 14),
+          Text(
+            channelsP.loadingLabel.isNotEmpty
+                ? channelsP.loadingLabel
+                : 'جاري التحميل...',
+            style: const TextStyle(color: AppTheme.textSecondary, fontSize: 13),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmpty() {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.tv_off_rounded,
+              size: 60, color: AppTheme.textSecondary.withOpacity(0.4)),
+          const SizedBox(height: 12),
+          const Text('لا توجد قنوات',
+              style: TextStyle(color: AppTheme.textSecondary)),
+        ],
+      ),
     );
   }
 }
@@ -311,8 +472,7 @@ class _ChannelCard extends StatelessWidget {
                             ? Icons.favorite_rounded
                             : Icons.favorite_border_rounded,
                         size: 13,
-                        color:
-                            channel.isFavorite ? Colors.red : Colors.white70,
+                        color: channel.isFavorite ? Colors.red : Colors.white70,
                       ),
                     ),
                   ),

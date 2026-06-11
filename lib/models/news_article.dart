@@ -1,6 +1,7 @@
 class NewsArticle {
   final String title;
   final String? description;
+  final String? content; // نص المقال الكامل (content:encoded) إن وُجد
   final String url;
   final String? imageUrl;
   final String source;
@@ -10,12 +11,18 @@ class NewsArticle {
   const NewsArticle({
     required this.title,
     this.description,
+    this.content,
     required this.url,
     this.imageUrl,
     required this.source,
     this.pubDate,
     this.isTransfer = false,
   });
+
+  /// أفضل نص متاح للعرض داخل التطبيق (الكامل ثم الوصف)
+  String get bodyHtml => (content != null && content!.trim().isNotEmpty)
+      ? content!
+      : (description ?? '');
 
   /// Transfer keywords in Arabic + English
   static const _transferKeywords = [
@@ -32,6 +39,7 @@ class NewsArticle {
   factory NewsArticle.fromRssItem({
     required String title,
     String? description,
+    String? content,
     required String link,
     String? imageUrl,
     required String source,
@@ -41,6 +49,7 @@ class NewsArticle {
     return NewsArticle(
       title: title,
       description: description,
+      content: content,
       url: link,
       imageUrl: imageUrl,
       source: source,

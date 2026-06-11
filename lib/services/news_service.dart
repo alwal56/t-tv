@@ -70,12 +70,14 @@ class NewsService {
           final title = _text(item, 'title');
           final link  = _text(item, 'link');
           final desc  = _text(item, 'description');
+          final full  = _text(item, 'encoded'); // content:encoded
           final date  = _parseDate(_text(item, 'pubDate'));
           final img   = _extractImage(item);
 
           return NewsArticle.fromRssItem(
             title: title,
             description: desc.isNotEmpty ? desc : null,
+            content: full.isNotEmpty ? full : null,
             link: link,
             imageUrl: img,
             source: src.name,

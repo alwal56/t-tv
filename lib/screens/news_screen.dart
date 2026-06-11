@@ -1,12 +1,9 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html show window;
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/news_article.dart';
 import '../services/news_service.dart';
 import '../theme/app_theme.dart';
+import 'news_detail_screen.dart';
 
 class NewsScreen extends StatefulWidget {
   /// التبويب الافتراضي: 0 = الأخبار، 1 = الانتقالات
@@ -39,12 +36,11 @@ class _NewsScreenState extends State<NewsScreen>
     super.dispose();
   }
 
-  void _openUrl(String url) {
-    if (kIsWeb) {
-      try {
-        html.window.open(url, '_blank');
-      } catch (_) {}
-    }
+  void _openArticle(NewsArticle article) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => NewsDetailScreen(article: article)),
+    );
   }
 
   @override
@@ -173,7 +169,7 @@ class _NewsScreenState extends State<NewsScreen>
             const Divider(height: 1, color: Color(0xFF1F1F1F)),
         itemBuilder: (_, i) => _ArticleCard(
           article: articles[i],
-          onTap: () => _openUrl(articles[i].url),
+          onTap: () => _openArticle(articles[i]),
         ),
       ),
     );
