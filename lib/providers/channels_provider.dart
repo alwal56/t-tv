@@ -153,13 +153,29 @@ class ChannelsProvider extends ChangeNotifier {
       try {
         _loadingLabel = 'جاري تحميل ${playlist.name}...';
         notifyListeners();
-        final channels =
-            await M3uParser.parseFromUrl(playlist.url, maxChannels: 300);
+
+        // مصدر Xtream محفوظ بصيغة "server|user|pass"
+        List<Channel> channels;
+        if (playlist.kind == 'xtream') {
+          final parts = playlist.url.split('|');
+          if (parts.length < 3) continue;
+          channels = await XtreamService.loadChannels(
+            server: parts[0],
+            username: parts[1],
+            password: parts[2],
+            maxChannels: 500,
+          );
+        } else {
+          channels =
+              await M3uParser.parseFromUrl(playlist.url, maxChannels: 300);
+        }
+
         for (final ch in channels) {
           if (!seenUrls.contains(ch.url)) {
             seenUrls.add(ch.url);
-            ch.isFavorite = favoriteIds.contains(ch.id);
-            allChannels.add(ch);
+            final out = _applyGroup(ch, playlist.groupName);
+            out.isFavorite = favoriteIds.contains(out.id);
+            allChannels.add(out);
           }
         }
       } catch (_) {}
@@ -170,6 +186,20 @@ class ChannelsProvider extends ChangeNotifier {
     _state =
         allChannels.isNotEmpty ? LoadingState.loaded : LoadingState.idle;
     notifyListeners();
+  }
+
+  /// يعيد القناة بمجموعة مخصّصة إذا حدّد المستخدم اسم مجلد
+  Channel _applyGroup(Channel ch, String? groupName) {
+    if (groupName == null || groupName.trim().isEmpty) return ch;
+    return Channel(
+      id: ch.id,
+      name: ch.name,
+      url: ch.url,
+      logo: ch.logo,
+      group: groupName.trim(),
+      tvgId: ch.tvgId,
+      tvgName: ch.tvgName,
+    );
   }
 
   Future<void> _loadDefaultPlaylists() async {
@@ -236,7 +266,7 @@ class ChannelsProvider extends ChangeNotifier {
 
   // ─── Load M3U from URL ────────────────────────────────────────────────────
 
-  Future<void> loadPlaylist(String url) async {
+  Future<void> loadPlaylist(String url, {String? groupName}) async {
     _state = LoadingState.loading;
     _loadingLabel = 'جاري تحميل القائمة...';
     _errorMessage = '';
@@ -250,8 +280,9 @@ class ChannelsProvider extends ChangeNotifier {
       final newChannels = channels
           .where((ch) => !seenUrls.contains(ch.url))
           .map((ch) {
-        ch.isFavorite = favoriteIds.contains(ch.id);
-        return ch;
+        final out = _applyGroup(ch, groupName);
+        out.isFavorite = favoriteIds.contains(out.id);
+        return out;
       }).toList();
 
       _allChannels.addAll(newChannels);
@@ -261,10 +292,14 @@ class ChannelsProvider extends ChangeNotifier {
       if (!existing) {
         final playlist = Playlist(
           id: DateTime.now().millisecondsSinceEpoch.toString(),
-          name: 'قائمة ${_playlists.length + 1}',
+          name: (groupName != null && groupName.trim().isNotEmpty)
+              ? groupName.trim()
+              : 'قائمة ${_playlists.length + 1}',
           url: url,
           addedAt: DateTime.now(),
           channelCount: channels.length,
+          groupName: groupName?.trim(),
+          kind: 'm3u',
         );
         _playlists.add(playlist);
         await StorageService.savePlaylists(_playlists);
@@ -288,6 +323,7 @@ class ChannelsProvider extends ChangeNotifier {
     required String server,
     required String username,
     required String password,
+    String? groupName,
   }) async {
     _state = LoadingState.loading;
     _loadingLabel = 'جاري تحميل Xtream Codes...';
@@ -299,15 +335,26 @@ class ChannelsProvider extends ChangeNotifier {
         server: server,
         username: username,
         password: password,
+        maxChannels: 500,
       );
+
+      if (channels.isEmpty) {
+        _state = LoadingState.error;
+        _errorMessage =
+            'لم يتم العثور على قنوات — تحقّق من الرابط واسم المستخدم وكلمة المرور';
+        _loadingLabel = '';
+        notifyListeners();
+        return;
+      }
 
       final favoriteIds = StorageService.getFavoriteIds();
       final seenUrls = _allChannels.map((c) => c.url).toSet();
       final newChannels = channels
           .where((ch) => !seenUrls.contains(ch.url))
           .map((ch) {
-        ch.isFavorite = favoriteIds.contains(ch.id);
-        return ch;
+        final out = _applyGroup(ch, groupName);
+        out.isFavorite = favoriteIds.contains(out.id);
+        return out;
       }).toList();
 
       _allChannels.addAll(newChannels);
@@ -319,10 +366,14 @@ class ChannelsProvider extends ChangeNotifier {
       if (!existing) {
         _playlists.add(Playlist(
           id: DateTime.now().millisecondsSinceEpoch.toString(),
-          name: 'Xtream: $username',
+          name: (groupName != null && groupName.trim().isNotEmpty)
+              ? groupName.trim()
+              : 'Xtream: $username',
           url: sourceKey,
           addedAt: DateTime.now(),
           channelCount: channels.length,
+          groupName: groupName?.trim(),
+          kind: 'xtream',
         ));
         await StorageService.savePlaylists(_playlists);
 

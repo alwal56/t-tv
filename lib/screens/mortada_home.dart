@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../providers/channels_provider.dart';
 import '../theme/app_theme.dart';
+import 'add_source_sheet.dart';
 import 'channels_screen.dart';
 import 'matches_screen.dart';
 import 'news_screen.dart';
@@ -119,6 +120,9 @@ class MortadaHome extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 14),
+                  // ── إضافة مصدر (M3U / Xtream) ──
+                  _AddSourceTile(onTap: () => showAddSourceSheet(context)),
                 ]),
               ),
             ),
@@ -304,6 +308,42 @@ class _BigCard extends StatelessWidget {
 }
 
 // ─── Small card (news / transfers) ───────────────────────────────────────────
+
+class _AddSourceTile extends StatelessWidget {
+  final VoidCallback onTap;
+  const _AddSourceTile({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 64,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: const Color(0xFF161618),
+          border: Border.all(color: AppTheme.accent.withOpacity(0.5), width: 1.5),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.add_circle_outline_rounded,
+                color: AppTheme.accent, size: 24),
+            const SizedBox(width: 10),
+            const Text(
+              'إضافة قنوات (M3U / Xtream)',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class _SmallCard extends StatelessWidget {
   final String title;
