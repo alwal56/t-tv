@@ -231,6 +231,12 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
 
   static String _extractArticle(String htmlDoc) {
     var src = htmlDoc;
+    // أزل العناصر غير النصية أولاً (سكربت/ستايل/SVG/رؤوس)
+    src = src.replaceAll(
+        RegExp(r'<(script|style|svg|noscript|head|nav|footer|aside)[^>]*>.*?</\1>',
+            caseSensitive: false, dotAll: true),
+        ' ');
+
     // اقتصر على <article> إن وُجدت
     final art = RegExp(r'<article[^>]*>(.*?)</article>',
             caseSensitive: false, dotAll: true)
@@ -242,12 +248,31 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
             caseSensitive: false, dotAll: true)
         .allMatches(src);
     final buf = StringBuffer();
+    final seen = <String>{};
     for (final m in ps) {
       final txt = _htmlToText(m.group(1) ?? '');
-      // تجاهل الفقرات القصيرة (قوائم، إعلانات)
-      if (txt.length >= 40) buf.writeln('$txt\n');
+      if (txt.length < 40) continue;          // تجاهل القصير
+      if (_looksLikeCode(txt)) continue;        // تجاهل CSS/JS
+      if (!seen.add(txt)) continue;             // تجاهل التكرار
+      buf.writeln('$txt\n');
     }
     return buf.toString().trim();
+  }
+
+  /// يكتشف ما إذا كانت الفقرة كوداً (CSS/JS) لا نصاً
+  static bool _looksLikeCode(String t) {
+    if (t.contains('{') && t.contains('}')) return true;
+    if (t.contains('px;') || t.contains('url(') || t.contains('@media')) {
+      return true;
+    }
+    if (t.contains('background:') || t.contains('function(') ||
+        t.contains('display:') || t.contains('width:')) {
+      return true;
+    }
+    // كثافة رموز غير حرفية عالية = كود غالباً
+    final symbols = RegExp(r'[{}();:=<>/\\]').allMatches(t).length;
+    if (symbols > t.length * 0.12) return true;
+    return false;
   }
 
   static String _htmlToText(String html) {

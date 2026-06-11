@@ -337,18 +337,29 @@ class _MatchRow extends StatefulWidget {
 
 class _MatchRowState extends State<_MatchRow> {
   Future<void> _toggleReminder() async {
-    final m = widget.match;
-    final wasOn = NotificationService.isScheduled(m.id);
-    final isOn = await NotificationService.toggleReminder(m);
+    final result = await NotificationService.toggleReminder(widget.match);
     if (!mounted) return;
     setState(() {});
-    final msg = wasOn
-        ? 'تم إلغاء التنبيه'
-        : isOn
-            ? '🔔 سيتم تنبيهك قبل المباراة بـ5 دقائق'
-            : 'اسمح بالإشعارات من إعدادات المتصفح';
+    final String msg;
+    switch (result) {
+      case ReminderResult.scheduled:
+        msg = '🔔 سيتم تنبيهك قبل المباراة بـ5 دقائق';
+        break;
+      case ReminderResult.firedNow:
+        msg = 'المباراة على وشك أن تبدأ';
+        break;
+      case ReminderResult.canceled:
+        msg = 'تم إلغاء التنبيه';
+        break;
+      case ReminderResult.denied:
+        msg = 'الإشعارات محظورة — فعّلها من 🔒 بجانب الرابط ثم أعد المحاولة';
+        break;
+      case ReminderResult.unsupported:
+        msg = 'متصفحك لا يدعم الإشعارات';
+        break;
+    }
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(msg), duration: const Duration(seconds: 2)),
+      SnackBar(content: Text(msg), duration: const Duration(seconds: 3)),
     );
   }
 
@@ -472,17 +483,24 @@ class _ScoreBox extends StatelessWidget {
   final Match match;
   const _ScoreBox(this.match);
 
+  static String _dayLabel(DateTime local) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final d = DateTime(local.year, local.month, local.day);
+    final diff = d.difference(today).inDays;
+    if (diff == 0) return 'اليوم';
+    if (diff == 1) return 'غداً';
+    const days = ['الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد'];
+    return days[(local.weekday - 1) % 7];
+  }
+
   @override
   Widget build(BuildContext context) {
     if (match.isUpcoming) {
-      // Show kickoff time (and day if not today)
+      // Show kickoff time + day label
       final local = match.startTime.toLocal();
-      final now = DateTime.now();
       final h = local.hour.toString().padLeft(2, '0');
       final m = local.minute.toString().padLeft(2, '0');
-      final isToday = local.year == now.year &&
-          local.month == now.month &&
-          local.day == now.day;
       return Column(
         children: [
           Text('$h:$m',
@@ -491,7 +509,7 @@ class _ScoreBox extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.bold)),
           const SizedBox(height: 2),
-          Text(isToday ? 'اليوم' : 'غداً',
+          Text(_dayLabel(local),
               style: const TextStyle(
                   color: AppTheme.textSecondary, fontSize: 9)),
         ],

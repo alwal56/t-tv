@@ -4,8 +4,16 @@ import 'dart:html' as html;
 
 import '../models/match.dart';
 
-/// Schedules browser notifications 5 minutes before a match kicks off.
-/// Timers live only while the page is open (web Notification API).
+enum ReminderResult {
+  scheduled,   // تم الضبط بنجاح
+  firedNow,    // المباراة قريبة جداً → نُبّه فوراً
+  canceled,    // أُلغي التنبيه
+  denied,      // المتصفح رفض الإشعارات
+  unsupported, // المتصفح لا يدعم الإشعارات
+}
+
+/// تنبيهات المتصفح قبل المباراة بـ5 دقائق.
+/// تعمل ما دامت صفحة الموقع مفتوحة (Web Notification API).
 class NotificationService {
   static const _leadTime = Duration(minutes: 5);
   static final _scheduled = <int, Timer>{};
@@ -22,40 +30,51 @@ class NotificationService {
     return perm == 'granted';
   }
 
-  /// Toggles the reminder for [m].
-  /// Returns true if the reminder is now active, false otherwise.
-  static Future<bool> toggleReminder(Match m) async {
-    // Already scheduled → cancel
+  /// يبدّل التنبيه لمباراة [m].
+  static Future<ReminderResult> toggleReminder(Match m) async {
+    if (!html.Notification.supported) return ReminderResult.unsupported;
+
+    // مضبوط مسبقاً → إلغاء
     final existing = _scheduled.remove(m.id);
     if (existing != null) {
       existing.cancel();
-      return false;
+      return ReminderResult.canceled;
     }
 
-    if (!await _ensurePermission()) return false;
+    final ok = await _ensurePermission();
+    if (!ok) return ReminderResult.denied;
 
     final fireAt = m.startTime.subtract(_leadTime);
     final wait = fireAt.difference(DateTime.now());
+
     if (wait.isNegative) {
-      // Less than 5 minutes to kickoff — notify immediately
-      _show(m);
-      return false;
+      // أقل من 5 دقائق على البداية → نبّه الآن
+      _show(
+        '⚽ ${m.homeTeam} × ${m.awayTeam}',
+        'المباراة على وشك أن تبدأ — ${m.tournament}',
+      );
+      return ReminderResult.firedNow;
     }
+
+    // إشعار تأكيد فوري ليتأكد المستخدم أن التنبيهات تعمل
+    _show(
+      '🔔 تم ضبط تنبيه',
+      'سننبّهك قبل ${m.homeTeam} × ${m.awayTeam} بـ5 دقائق',
+    );
 
     _scheduled[m.id] = Timer(wait, () {
       _scheduled.remove(m.id);
-      _show(m);
+      _show(
+        '⚽ ${m.homeTeam} × ${m.awayTeam}',
+        'المباراة تبدأ خلال 5 دقائق — ${m.tournament}',
+      );
     });
-    return true;
+    return ReminderResult.scheduled;
   }
 
-  static void _show(Match m) {
+  static void _show(String title, String body) {
     try {
-      html.Notification(
-        '⚽ ${m.homeTeam} × ${m.awayTeam}',
-        body: 'المباراة تبدأ خلال 5 دقائق — ${m.tournament}',
-        icon: 'icons/Icon-192.png',
-      );
+      html.Notification(title, body: body, icon: 'icons/Icon-192.png');
     } catch (_) {}
   }
 }

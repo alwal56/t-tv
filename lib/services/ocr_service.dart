@@ -114,10 +114,31 @@ class OcrService {
       );
       final m = re.firstMatch(text);
       if (m != null) {
-        final v = m.group(1)?.trim();
-        if (v != null && v.length >= 2 && !v.contains('://')) return v;
+        final v = _sanitize(m.group(1));
+        if (v != null) return v;
       }
     }
     return null;
+  }
+
+  /// ينظّف القيمة ويرفض النصوص النائبة (placeholders)
+  static String? _sanitize(String? raw) {
+    if (raw == null) return null;
+    // إزالة الأقواس وعلامات القوالب من الأطراف
+    var v = raw.trim().replaceAll(RegExp(r'^[\[\]<>{}():"ّ\-]+|[\[\]<>{}():"\-]+$'), '');
+    v = v.trim();
+    if (v.length < 3) return null;
+    if (v.contains('://')) return null;
+    // رفض القيم النائبة الشائعة
+    const placeholders = [
+      'name', 'username', 'user', 'password', 'pass', 'pwd',
+      'xxxx', 'yourusername', 'yourpassword', 'example',
+    ];
+    final lv = v.toLowerCase();
+    if (placeholders.contains(lv)) return null;
+    if (v.contains('[') || v.contains(']') || v.contains('{') || v.contains('}')) {
+      return null;
+    }
+    return v;
   }
 }

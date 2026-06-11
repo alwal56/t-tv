@@ -22,24 +22,48 @@ class MatchesService {
     ['club.friendly',     'مباريات ودية - أندية'],
   ];
 
-  /// Live matches only (in-progress)
+  /// مباريات اليوم (حسب التوقيت المحلي للمستخدم)
+  static Future<List<Match>> getTodayMatches() async {
+    final now = DateTime.now();
+    // نجلب نطاق أمس→غد لالتقاط المباريات التي تعبر منتصف الليل بتوقيت UTC
+    final all = await _fetchRange(
+      now.subtract(const Duration(days: 1)),
+      now.add(const Duration(days: 1)),
+    );
+    final today = DateTime(now.year, now.month, now.day);
+    final result = all.where((m) {
+      final d = m.startTime.toLocal();
+      final md = DateTime(d.year, d.month, d.day);
+      return md == today;
+    }).toList();
+    _sort(result);
+    return result;
+  }
+
+  /// المباريات المباشرة الآن
   static Future<List<Match>> getLiveMatches() async {
-    final all = await getTodayMatches();
+    final now = DateTime.now();
+    final all = await _fetchRange(
+      now.subtract(const Duration(days: 1)),
+      now.add(const Duration(days: 1)),
+    );
     return all.where((m) => m.isLive).toList();
   }
 
-  /// All matches for today across all configured leagues
-  static Future<List<Match>> getTodayMatches() async {
-    return _fetchDate(DateTime.now());
-  }
-
-  /// Today + tomorrow (for the "الكل" filter — upcoming schedule view)
+  /// جدول الأيام القادمة (اليوم → +6 أيام)
   static Future<List<Match>> getUpcomingMatches() async {
     final now = DateTime.now();
-    final results = await Future.wait([
-      _fetchDate(now),
-      _fetchDate(now.add(const Duration(days: 1))),
-    ]);
+    final all = await _fetchRange(now, now.add(const Duration(days: 6)));
+    _sort(all);
+    return all;
+  }
+
+  // ── جلب نطاق تواريخ من كل الدوريات ──
+  static Future<List<Match>> _fetchRange(DateTime start, DateTime end) async {
+    final range = '${_dateStr(start)}-${_dateStr(end)}';
+    final futures = _leagues.map((l) => _fetchLeague(l[0], l[1], range));
+    final results = await Future.wait(futures);
+
     final seen = <int>{};
     final all = <Match>[];
     for (final list in results) {
@@ -51,35 +75,26 @@ class MatchesService {
     return all;
   }
 
-  static Future<List<Match>> _fetchDate(DateTime day) async {
-    final date = _dateStr(day);
-    final futures = _leagues.map((l) => _fetchLeague(l[0], l[1], date));
-    final results = await Future.wait(futures);
-    final all = results.expand((r) => r).toList();
-    _sort(all);
-    return all;
-  }
-
-  // Sort: 🔴 live first → ⏳ upcoming (by kickoff) → ✅ finished
+  // ترتيب: 🔴 مباشر → ⏳ قادمة (حسب الموعد) → ✅ منتهية
   static void _sort(List<Match> all) {
     all.sort((a, b) {
-      if (a.isLive  && !b.isLive)       return -1;
-      if (!a.isLive &&  b.isLive)       return  1;
+      if (a.isLive && !b.isLive) return -1;
+      if (!a.isLive && b.isLive) return 1;
       if (a.isUpcoming && b.isFinished) return -1;
-      if (a.isFinished && b.isUpcoming) return  1;
+      if (a.isFinished && b.isUpcoming) return 1;
       return a.startTime.compareTo(b.startTime);
     });
   }
 
   static Future<List<Match>> _fetchLeague(
-      String slug, String name, String date) async {
+      String slug, String name, String dates) async {
     try {
-      final url = '$_base/$slug/scoreboard?dates=$date&limit=50';
+      final url = '$_base/$slug/scoreboard?dates=$dates&limit=100';
       final res = await http
           .get(Uri.parse(url))
           .timeout(const Duration(seconds: 12));
       if (res.statusCode != 200) return [];
-      final data   = json.decode(res.body) as Map<String, dynamic>;
+      final data = json.decode(res.body) as Map<String, dynamic>;
       final events = (data['events'] as List<dynamic>?) ?? [];
       return events
           .cast<Map<String, dynamic>>()
@@ -90,7 +105,7 @@ class MatchesService {
     }
   }
 
-  // ESPN dates param uses YYYYMMDD (no dashes)
+  // ESPN dates param uses YYYYMMDD (no dashes within a single date)
   static String _dateStr(DateTime d) {
     return '${d.year}'
         '${d.month.toString().padLeft(2, '0')}'
