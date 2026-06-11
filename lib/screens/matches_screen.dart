@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/match.dart';
 import '../services/matches_service.dart';
+import '../services/notification_service.dart';
 import '../theme/app_theme.dart';
 
 enum MatchFilter { all, live, today }
@@ -14,7 +15,7 @@ class MatchesScreen extends StatefulWidget {
 }
 
 class _MatchesScreenState extends State<MatchesScreen> {
-  MatchFilter _filter = MatchFilter.live;
+  MatchFilter _filter = MatchFilter.today;
   late Future<List<Match>> _future;
 
   @override
@@ -27,7 +28,8 @@ class _MatchesScreenState extends State<MatchesScreen> {
     _future = switch (_filter) {
       MatchFilter.live  => MatchesService.getLiveMatches(),
       MatchFilter.today => MatchesService.getTodayMatches(),
-      MatchFilter.all   => MatchesService.getTodayMatches(),
+      // "الكل" = جدول اليوم + الغد
+      MatchFilter.all   => MatchesService.getUpcomingMatches(),
     };
   }
 
@@ -318,13 +320,36 @@ class _TournamentSection extends StatelessWidget {
 
 // ─── Match Row ───────────────────────────────────────────────────────────────────
 
-class _MatchRow extends StatelessWidget {
+class _MatchRow extends StatefulWidget {
   final Match match;
   const _MatchRow(this.match);
 
   @override
+  State<_MatchRow> createState() => _MatchRowState();
+}
+
+class _MatchRowState extends State<_MatchRow> {
+  Future<void> _toggleReminder() async {
+    final m = widget.match;
+    final wasOn = NotificationService.isScheduled(m.id);
+    final isOn = await NotificationService.toggleReminder(m);
+    if (!mounted) return;
+    setState(() {});
+    final msg = wasOn
+        ? 'تم إلغاء التنبيه'
+        : isOn
+            ? '🔔 سيتم تنبيهك قبل المباراة بـ5 دقائق'
+            : 'اسمح بالإشعارات من إعدادات المتصفح';
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(msg), duration: const Duration(seconds: 2)),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final match = widget.match;
     final isLive = match.isLive;
+    final reminderOn = NotificationService.isScheduled(match.id);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -384,6 +409,23 @@ class _MatchRow extends StatelessWidget {
               ],
             ),
           ),
+          // 🔔 Reminder bell (upcoming matches only)
+          if (match.isUpcoming)
+            IconButton(
+              onPressed: _toggleReminder,
+              tooltip: reminderOn
+                  ? 'إلغاء التنبيه'
+                  : 'تنبيه قبل المباراة بـ5 دقائق',
+              icon: Icon(
+                reminderOn
+                    ? Icons.notifications_active_rounded
+                    : Icons.notifications_none_rounded,
+                size: 20,
+                color: reminderOn
+                    ? AppTheme.accent
+                    : AppTheme.textSecondary,
+              ),
+            ),
         ],
       ),
     );
@@ -426,9 +468,14 @@ class _ScoreBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (match.isUpcoming) {
-      // Show time
-      final h = match.startTime.toLocal().hour.toString().padLeft(2, '0');
-      final m = match.startTime.toLocal().minute.toString().padLeft(2, '0');
+      // Show kickoff time (and day if not today)
+      final local = match.startTime.toLocal();
+      final now = DateTime.now();
+      final h = local.hour.toString().padLeft(2, '0');
+      final m = local.minute.toString().padLeft(2, '0');
+      final isToday = local.year == now.year &&
+          local.month == now.month &&
+          local.day == now.day;
       return Column(
         children: [
           Text('$h:$m',
@@ -437,8 +484,9 @@ class _ScoreBox extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.bold)),
           const SizedBox(height: 2),
-          const Text('قادمة',
-              style: TextStyle(color: AppTheme.textSecondary, fontSize: 9)),
+          Text(isToday ? 'اليوم' : 'غداً',
+              style: const TextStyle(
+                  color: AppTheme.textSecondary, fontSize: 9)),
         ],
       );
     }

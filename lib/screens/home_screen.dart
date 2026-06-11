@@ -78,43 +78,71 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                children: provider.categories.map((cat) {
-                  final isSelected = provider.selectedCategory == cat;
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 2),
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? AppTheme.accent.withOpacity(0.15)
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ListTile(
-                      dense: true,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      leading: Icon(
-                        _categoryIcon(cat),
-                        color: isSelected
-                            ? AppTheme.accent
-                            : AppTheme.textSecondary,
-                        size: 18,
-                      ),
-                      title: Text(
-                        cat,
+                children: [
+                  // ── كل التصنيفات داخل مجلد واحد "قنوات" ──────────────
+                  Theme(
+                    data: Theme.of(context)
+                        .copyWith(dividerColor: Colors.transparent),
+                    child: ExpansionTile(
+                      initiallyExpanded: true,
+                      tilePadding:
+                          const EdgeInsets.symmetric(horizontal: 12),
+                      leading: const Icon(Icons.live_tv_rounded,
+                          color: AppTheme.accent, size: 20),
+                      iconColor: AppTheme.accent,
+                      collapsedIconColor: AppTheme.textSecondary,
+                      title: const Text(
+                        'قنوات',
                         style: TextStyle(
-                          color: isSelected
-                              ? AppTheme.accent
-                              : AppTheme.textPrimary,
-                          fontWeight: isSelected
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                          fontSize: 13,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
                         ),
                       ),
-                      onTap: () => provider.setCategory(cat),
+                      childrenPadding:
+                          const EdgeInsets.only(left: 8, bottom: 4),
+                      children: provider.categories.map((cat) {
+                        final isSelected =
+                            provider.selectedCategory == cat;
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 2),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? AppTheme.accent.withOpacity(0.15)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: ListTile(
+                            dense: true,
+                            visualDensity: VisualDensity.compact,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            leading: Icon(
+                              _categoryIcon(cat),
+                              color: isSelected
+                                  ? AppTheme.accent
+                                  : AppTheme.textSecondary,
+                              size: 17,
+                            ),
+                            title: Text(
+                              cat,
+                              style: TextStyle(
+                                color: isSelected
+                                    ? AppTheme.accent
+                                    : AppTheme.textPrimary,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                fontSize: 12.5,
+                              ),
+                            ),
+                            onTap: () => provider.setCategory(cat),
+                          ),
+                        );
+                      }).toList(),
                     ),
-                  );
-                }).toList(),
+                  ),
+                ],
               ),
             ),
             const Divider(height: 1),

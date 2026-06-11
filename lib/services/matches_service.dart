@@ -3,24 +3,23 @@ import 'package:http/http.dart' as http;
 import '../models/match.dart';
 
 class MatchesService {
-  // ESPN public soccer API — CORS-friendly, no API key, no proxy needed
+  // ESPN public soccer API — CORS-friendly (Access-Control-Allow-Origin: *)
   static const _base =
       'https://site.api.espn.com/apis/site/v2/sports/soccer';
 
-  /// slug → Arabic league name
+  /// slug → Arabic league name (slugs verified against ESPN, June 2026)
   static const _leagues = [
-    ['uefa.champions_league',  'دوري أبطال أوروبا'],
-    ['uefa.europa_league',     'الدوري الأوروبي'],
-    ['eng.1',                  'الدوري الإنجليزي الممتاز'],
-    ['esp.1',                  'الدوري الإسباني'],
-    ['ger.1',                  'الدوري الألماني'],
-    ['ita.1',                  'الدوري الإيطالي'],
-    ['fra.1',                  'الدوري الفرنسي'],
-    ['ksa.1',                  'دوري روشن السعودي'],
-    ['uae.1',                  'دوري أدنوك للمحترفين'],
-    ['qat.1',                  'دوري نجوم قطر'],
-    ['fifa.worldq.afc',        'تصفيات كأس العالم - آسيا'],
-    ['fifa.worldq.caf',        'تصفيات كأس العالم - أفريقيا'],
+    ['fifa.world',        'كأس العالم 2026 🏆'],
+    ['uefa.champions',    'دوري أبطال أوروبا'],
+    ['uefa.europa',       'الدوري الأوروبي'],
+    ['ksa.1',             'دوري روشن السعودي'],
+    ['eng.1',             'الدوري الإنجليزي الممتاز'],
+    ['esp.1',             'الدوري الإسباني'],
+    ['ger.1',             'الدوري الألماني'],
+    ['ita.1',             'الدوري الإيطالي'],
+    ['fra.1',             'الدوري الفرنسي'],
+    ['fifa.friendly',     'مباريات ودية دولية'],
+    ['club.friendly',     'مباريات ودية - أندية'],
   ];
 
   /// Live matches only (in-progress)
@@ -31,22 +30,45 @@ class MatchesService {
 
   /// All matches for today across all configured leagues
   static Future<List<Match>> getTodayMatches() async {
-    final today = _todayStr(); // YYYYMMDD
-    final futures = _leagues.map((l) => _fetchLeague(l[0], l[1], today));
+    return _fetchDate(DateTime.now());
+  }
+
+  /// Today + tomorrow (for the "الكل" filter — upcoming schedule view)
+  static Future<List<Match>> getUpcomingMatches() async {
+    final now = DateTime.now();
+    final results = await Future.wait([
+      _fetchDate(now),
+      _fetchDate(now.add(const Duration(days: 1))),
+    ]);
+    final seen = <int>{};
+    final all = <Match>[];
+    for (final list in results) {
+      for (final m in list) {
+        if (seen.add(m.id)) all.add(m);
+      }
+    }
+    _sort(all);
+    return all;
+  }
+
+  static Future<List<Match>> _fetchDate(DateTime day) async {
+    final date = _dateStr(day);
+    final futures = _leagues.map((l) => _fetchLeague(l[0], l[1], date));
     final results = await Future.wait(futures);
-
     final all = results.expand((r) => r).toList();
+    _sort(all);
+    return all;
+  }
 
-    // Sort: 🔴 live first → ⏳ upcoming (by time) → ✅ finished
+  // Sort: 🔴 live first → ⏳ upcoming (by kickoff) → ✅ finished
+  static void _sort(List<Match> all) {
     all.sort((a, b) {
-      if (a.isLive  && !b.isLive)      return -1;
-      if (!a.isLive &&  b.isLive)      return  1;
+      if (a.isLive  && !b.isLive)       return -1;
+      if (!a.isLive &&  b.isLive)       return  1;
       if (a.isUpcoming && b.isFinished) return -1;
       if (a.isFinished && b.isUpcoming) return  1;
       return a.startTime.compareTo(b.startTime);
     });
-
-    return all;
   }
 
   static Future<List<Match>> _fetchLeague(
@@ -69,10 +91,9 @@ class MatchesService {
   }
 
   // ESPN dates param uses YYYYMMDD (no dashes)
-  static String _todayStr() {
-    final n = DateTime.now();
-    return '${n.year}'
-        '${n.month.toString().padLeft(2, '0')}'
-        '${n.day.toString().padLeft(2, '0')}';
+  static String _dateStr(DateTime d) {
+    return '${d.year}'
+        '${d.month.toString().padLeft(2, '0')}'
+        '${d.day.toString().padLeft(2, '0')}';
   }
 }
