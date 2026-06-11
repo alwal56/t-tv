@@ -61,9 +61,16 @@ class _MatchesScreenState extends State<MatchesScreen> {
 
   Widget _buildHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 8, 12),
+      padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
       child: Row(
         children: [
+          if (Navigator.of(context).canPop())
+            IconButton(
+              icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
+              onPressed: () => Navigator.pop(context),
+            )
+          else
+            const SizedBox(width: 8),
           const Icon(Icons.sports_soccer_rounded,
               color: AppTheme.accent, size: 22),
           const SizedBox(width: 10),

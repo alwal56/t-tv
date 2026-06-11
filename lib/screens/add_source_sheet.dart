@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/channels_provider.dart';
+import '../services/ocr_service.dart';
 import '../theme/app_theme.dart';
 
 /// يفتح نافذة إضافة مصدر (M3U أو Xtream) مع حقل اسم المجلد.
@@ -33,11 +35,63 @@ class _AddSourceSheetState extends State<_AddSourceSheet>
   final _user = TextEditingController();
   final _pass = TextEditingController();
   bool _obscure = true;
+  bool _ocrBusy = false;
 
   @override
   void initState() {
     super.initState();
     _tab = TabController(length: 2, vsync: this);
+  }
+
+  // ── قراءة البيانات من صورة (OCR) ──
+  Future<void> _readFromImage() async {
+    setState(() => _ocrBusy = true);
+    final result = await OcrService.pickAndRead();
+    if (!mounted) return;
+    setState(() => _ocrBusy = false);
+
+    if (result == null) {
+      _snack('تعذّر تشغيل قارئ الصور');
+      return;
+    }
+    if (result.rawText.trim().isEmpty) {
+      _snack('لم يتم اختيار صورة أو لم يُقرأ نص');
+      return;
+    }
+
+    final detected = <String>[];
+    // Xtream له أولوية إذا وُجد مستخدم/كلمة مرور
+    if (result.hasXtream) {
+      _tab.animateTo(1);
+      if (result.server != null) {
+        _server.text = result.server!;
+        detected.add('الخادم');
+      }
+      if (result.username != null) {
+        _user.text = result.username!;
+        detected.add('المستخدم');
+      }
+      if (result.password != null) {
+        _pass.text = result.password!;
+        detected.add('كلمة المرور');
+      }
+    } else if (result.m3uUrl != null) {
+      _tab.animateTo(0);
+      _m3u.text = result.m3uUrl!;
+      detected.add('رابط M3U');
+    }
+
+    if (detected.isEmpty) {
+      _snack('قُرئت الصورة لكن لم أتعرّف على بيانات مصدر واضحة');
+    } else {
+      _snack('تم استخراج: ${detected.join('، ')}');
+    }
+  }
+
+  void _snack(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(msg), duration: const Duration(seconds: 3)),
+    );
   }
 
   @override
@@ -136,6 +190,45 @@ class _AddSourceSheetState extends State<_AddSourceSheet>
                 ),
               ),
             ),
+            const SizedBox(height: 12),
+
+            // ── قراءة البيانات من صورة (OCR) ──
+            if (kIsWeb)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    onPressed: _ocrBusy ? null : _readFromImage,
+                    icon: _ocrBusy
+                        ? const SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(
+                                strokeWidth: 2, color: AppTheme.accent),
+                          )
+                        : const Icon(Icons.image_search_rounded, size: 18),
+                    label: Text(_ocrBusy
+                        ? 'جاري قراءة الصورة...'
+                        : 'رفع صورة وقراءة البيانات تلقائياً'),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppTheme.accent,
+                      side: BorderSide(color: AppTheme.accent.withOpacity(0.5)),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                  ),
+                ),
+              ),
+            if (kIsWeb) const SizedBox(height: 6),
+            if (kIsWeb)
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  'ارفع صورة فيها الرابط أو بيانات Xtream وسيملأ الحقول تلقائياً',
+                  style: TextStyle(color: AppTheme.textSecondary, fontSize: 11),
+                  textAlign: TextAlign.center,
+                ),
+              ),
             const SizedBox(height: 14),
 
             // ── التبويبات ──

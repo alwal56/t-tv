@@ -33,6 +33,32 @@
 
   <title>T-TV تي تيفي</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Tesseract.js — قراءة النص من الصور (OCR) -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script>
+    // يفتح منتقي الصور، يقرأ النص (عربي + إنجليزي) ويعيده كنص
+    window.pickAndOcr = function () {
+      return new Promise(function (resolve, reject) {
+        try {
+          var input = document.createElement('input');
+          input.type = 'file';
+          input.accept = 'image/*';
+          input.onchange = function () {
+            var file = input.files && input.files[0];
+            if (!file) { resolve(''); return; }
+            if (typeof Tesseract === 'undefined') {
+              reject('OCR library not loaded'); return;
+            }
+            Tesseract.recognize(file, 'eng+ara')
+              .then(function (r) { resolve((r && r.data && r.data.text) || ''); })
+              .catch(function (e) { reject('' + e); });
+          };
+          input.click();
+        } catch (e) { reject('' + e); }
+      });
+    };
+  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
