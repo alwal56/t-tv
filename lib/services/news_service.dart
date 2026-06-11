@@ -1,7 +1,6 @@
-import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 import '../models/news_article.dart';
+import 'cors_proxy.dart';
 
 class _RssSource {
   final String name;
@@ -10,60 +9,73 @@ class _RssSource {
 }
 
 class NewsService {
-  static const _proxy = 'https://corsproxy.io/?';
-
-  /// Arabic sports RSS feeds (football-focused)
+  /// مصادر أخبار رياضية عربية متعددة (متحقق من عملها)
   static const _sources = [
-    _RssSource('BBC عربي',  'https://feeds.bbci.co.uk/arabic/sport/rss.xml'),
-    _RssSource('فرانس 24',  'https://www.france24.com/ar/sport/rss'),
-    _RssSource('فيلجول',    'https://www.filgoal.com/feed/'),
+    _RssSource('BBC عربي',     'https://feeds.bbci.co.uk/arabic/sport/rss.xml'),
+    _RssSource('فرانس 24',     'https://www.france24.com/ar/sport/rss'),
+    _RssSource('CNN عربية',    'https://arabic.cnn.com/api/v1/rss/sport/rss.xml'),
+    _RssSource('اليوم السابع', 'https://www.youm7.com/rss/SectionRss?SectionID=298'),
+    _RssSource('الجزيرة',      'https://www.aljazeera.net/aljazeerarss/a7c186be-1baa-4bd4-9d80-a84db769f779/73d0e1b4-532f-45ef-b135-bfdff8b8cc54'),
+    _RssSource('RT عربي',      'https://arabic.rt.com/rss/'),
   ];
 
-  /// Football/sports keywords used to filter non-sports articles
+  /// كلمات رياضية لتصفية الأخبار غير الرياضية (للمصادر العامة)
   static const _sportsKeywords = [
-    'كرة', 'مباراة', 'دوري', 'هدف', 'لاعب', 'فريق', 'مدرب', 'بطولة',
-    'كأس', 'منتخب', 'ملعب', 'تهديف', 'انتقال', 'ضم', 'صفقة',
-    'ريال', 'برشلونة', 'ليفربول', 'النصر', 'الهلال', 'الاتحاد',
+    'كرة', 'مباراة', 'مباريات', 'دوري', 'هدف', 'أهداف', 'لاعب', 'لاعبين',
+    'فريق', 'مدرب', 'بطولة', 'كأس', 'منتخب', 'ملعب', 'تهديف', 'انتقال',
+    'ضم', 'صفقة', 'ريال', 'برشلونة', 'ليفربول', 'النصر', 'الهلال', 'الاتحاد',
+    'الأهلي', 'الزمالك', 'مونديال', 'رياضة', 'رياضي',
     'football', 'soccer', 'goal', 'match', 'league', 'transfer',
   ];
+
+  /// المصادر الرياضية المتخصّصة لا تحتاج تصفية
+  static const _sportsOnlySources = {
+    'BBC عربي', 'فرانس 24', 'CNN عربية', 'اليوم السابع',
+  };
 
   static bool _isSports(String title, String description) {
     final text = '${title.toLowerCase()} ${description.toLowerCase()}';
     return _sportsKeywords.any((k) => text.contains(k.toLowerCase()));
   }
 
-  static String _proxyUrl(String url) =>
-      kIsWeb ? '$_proxy${Uri.encodeComponent(url)}' : url;
-
   static Future<List<NewsArticle>> getAll() async {
-    final results = <NewsArticle>[];
-    for (final src in _sources) {
-      try {
-        final articles = await _fetchFeed(src);
-        results.addAll(articles);
-      } catch (_) {
-        // skip failed source
-      }
-    }
-    // Sort newest first
-    results.sort((a, b) {
+    // جلب كل المصادر بالتوازي لسرعة أكبر
+    final lists = await Future.wait(
+      _sources.map((s) async {
+        try {
+          return await _fetchFeed(s);
+        } catch (_) {
+          return <NewsArticle>[];
+        }
+      }),
+    );
+
+    final results = lists.expand((l) => l).toList();
+
+    // إزالة التكرار حسب الرابط
+    final seen = <String>{};
+    final unique = results.where((a) => seen.add(a.url)).toList();
+
+    // الأحدث أولاً
+    unique.sort((a, b) {
       if (a.pubDate == null && b.pubDate == null) return 0;
       if (a.pubDate == null) return 1;
       if (b.pubDate == null) return -1;
       return b.pubDate!.compareTo(a.pubDate!);
     });
-    return results;
+    return unique;
   }
 
   static Future<List<NewsArticle>> _fetchFeed(_RssSource src) async {
-    final res = await http
-        .get(Uri.parse(_proxyUrl(src.url)))
-        .timeout(const Duration(seconds: 15));
-    if (res.statusCode != 200) return [];
+    final body = await CorsProxy.fetch(
+      src.url,
+      isValid: (b) => b.contains('<item') || b.contains('<entry'),
+    );
+    if (body == null) return [];
 
-    final body = res.body;
     final doc = XmlDocument.parse(body);
     final items = doc.findAllElements('item');
+    final sportsOnly = _sportsOnlySources.contains(src.name);
 
     return items
         .map((item) {
@@ -87,7 +99,8 @@ class NewsService {
         .where((a) =>
             a.title.isNotEmpty &&
             a.url.isNotEmpty &&
-            _isSports(a.title, a.description ?? ''))
+            // المصادر الرياضية المتخصّصة تُقبل كاملة؛ العامة تُصفّى
+            (sportsOnly || _isSports(a.title, a.description ?? '')))
         .toList();
   }
 

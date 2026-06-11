@@ -3,9 +3,9 @@ import 'dart:html' as html show window;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/news_article.dart';
+import '../services/cors_proxy.dart';
 import '../theme/app_theme.dart';
 
 /// قارئ المقال داخل التطبيق — يعرض النص كاملاً بدون مغادرة التطبيق.
@@ -18,8 +18,6 @@ class NewsDetailScreen extends StatefulWidget {
 }
 
 class _NewsDetailScreenState extends State<NewsDetailScreen> {
-  static const _proxy = 'https://corsproxy.io/?';
-
   late String _body;          // النص المعروض حالياً
   bool _loadingFull = false;  // جاري جلب النص الكامل
 
@@ -36,14 +34,12 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
   Future<void> _fetchFull() async {
     setState(() => _loadingFull = true);
     try {
-      final url = kIsWeb
-          ? '$_proxy${Uri.encodeComponent(widget.article.url)}'
-          : widget.article.url;
-      final res = await http
-          .get(Uri.parse(url))
-          .timeout(const Duration(seconds: 18));
-      if (res.statusCode == 200) {
-        final extracted = _extractArticle(res.body);
+      final html = await CorsProxy.fetch(
+        widget.article.url,
+        isValid: (b) => b.length > 500,
+      );
+      if (html != null) {
+        final extracted = _extractArticle(html);
         if (extracted.length > _body.length) {
           if (!mounted) return;
           setState(() => _body = extracted);
