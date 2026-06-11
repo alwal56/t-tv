@@ -6,6 +6,7 @@ import '../models/channel.dart';
 import '../providers/channels_provider.dart';
 import '../providers/player_provider.dart';
 import '../theme/app_theme.dart';
+import 'add_source_sheet.dart';
 import 'player_screen.dart';
 
 /// شاشة تصفّح القنوات بنمط مرتضى — مقسّمة لفئات داخلية بأيقونات.
@@ -380,10 +381,28 @@ class _ChannelsScreenState extends State<ChannelsScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(Icons.tv_off_rounded,
-              size: 60, color: AppTheme.textSecondary.withOpacity(0.4)),
-          const SizedBox(height: 12),
-          const Text('لا توجد قنوات',
-              style: TextStyle(color: AppTheme.textSecondary)),
+              size: 64, color: AppTheme.textSecondary.withOpacity(0.4)),
+          const SizedBox(height: 14),
+          const Text('لا توجد قنوات بعد',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            child: Text(
+              'أضف اشتراكك (Xtream أو M3U) لعرض قنواتك بتصنيفاتها',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: AppTheme.textSecondary, fontSize: 13),
+            ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton.icon(
+            icon: const Icon(Icons.add_rounded),
+            label: const Text('إضافة اشتراك'),
+            onPressed: () => showAddSourceSheet(context),
+          ),
         ],
       ),
     );

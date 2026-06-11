@@ -8,39 +8,12 @@ import '../services/xtream_service.dart';
 
 enum LoadingState { idle, loading, loaded, error }
 
-/// رقم إصدار القوائم الافتراضية — زيادته تُعيد تحميل القنوات تلقائياً
-const _defaultPlaylistsVersion = 5;
+/// رقم إصدار القوائم الافتراضية — زيادته تمسح القنوات المخزّنة وتعيد البناء
+const _defaultPlaylistsVersion = 6;
 
-/// مجلدات القنوات المدمجة
-const _defaultPlaylists = [
-  // ⭐ القائمة المنتقاة — قنوات مجانية متحقق من عملها
-  _DefaultPlaylist(
-    name: '⭐ قنوات مختارة',
-    url: 'https://alwal56.github.io/t-tv/playlists/arabic.m3u',
-    maxChannels: 500,
-  ),
-  // قنوات دولية رياضية
-  _DefaultPlaylist(
-    name: '⚽ رياضة عالمية',
-    url: 'https://iptv-org.github.io/iptv/categories/sports.m3u',
-    groupOverride: '⚽ رياضة عالمية',
-    maxChannels: 250,
-  ),
-  // قنوات عربية
-  _DefaultPlaylist(
-    name: '🌍 قنوات عربية',
-    url: 'https://iptv-org.github.io/iptv/languages/ara.m3u',
-    groupOverride: '🌍 قنوات عربية',
-    maxChannels: 200,
-  ),
-  // أخبار
-  _DefaultPlaylist(
-    name: '📰 أخبار',
-    url: 'https://iptv-org.github.io/iptv/categories/news.m3u',
-    groupOverride: '📰 أخبار',
-    maxChannels: 100,
-  ),
-];
+/// لا قنوات افتراضية — التطبيق يعتمد على اشتراك المستخدم (Xtream / M3U)
+/// الذي يُضاف من داخل التطبيق ويُحفظ في المتصفح فقط.
+const _defaultPlaylists = <_DefaultPlaylist>[];
 
 class _DefaultPlaylist {
   final String name;
@@ -104,12 +77,30 @@ class ChannelsProvider extends ChangeNotifier {
 
   // ─── Initialization ───────────────────────────────────────────────────────
 
+  /// روابط القوائم المجانية القديمة التي نمسحها عند ترقية الإصدار
+  static const _legacyDefaultUrls = {
+    'https://alwal56.github.io/t-tv/playlists/arabic.m3u',
+    'https://iptv-org.github.io/iptv/categories/sports.m3u',
+    'https://iptv-org.github.io/iptv/languages/ara.m3u',
+    'https://iptv-org.github.io/iptv/categories/news.m3u',
+  };
+
   Future<void> init() async {
     _playlists = StorageService.getPlaylists();
     final savedVersion = StorageService.defaultPlaylistsVersion;
 
-    if (_playlists.isEmpty || savedVersion != _defaultPlaylistsVersion) {
-      await _loadDefaultPlaylists();
+    // ترقية الإصدار: امسح القنوات المجانية القديمة، وأبقِ اشتراك المستخدم
+    if (savedVersion != _defaultPlaylistsVersion) {
+      _playlists = _playlists
+          .where((p) => !_legacyDefaultUrls.contains(p.url))
+          .toList();
+      await StorageService.savePlaylists(_playlists);
+      await StorageService.saveDefaultPlaylistsVersion(_defaultPlaylistsVersion);
+    }
+
+    if (_playlists.isEmpty) {
+      _allChannels = [];
+      _state = LoadingState.idle;
     } else {
       await _loadAllSavedPlaylists();
     }

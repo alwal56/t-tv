@@ -68,10 +68,15 @@ class XtreamService {
           'عام';
       final logo = s['stream_icon']?.toString() ?? '';
 
+      // المتصفح يحتاج HLS (m3u8)؛ التطبيقات الأصلية تشغّل TS مباشرة
+      final streamUrl = kIsWeb
+          ? '$base/live/$username/$password/$streamId.m3u8'
+          : '$base/$username/$password/$streamId';
+
       channels.add(Channel(
         id: 'xt_${i}_$streamId',
         name: s['name']?.toString() ?? 'قناة',
-        url: '$base/$username/$password/$streamId',
+        url: streamUrl,
         logo: logo.isEmpty ? null : logo,
         group: groupName.isEmpty ? 'عام' : groupName,
         tvgId: s['epg_channel_id']?.toString(),
