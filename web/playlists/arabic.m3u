@@ -42,6 +42,15 @@ https://shls-live-enc.edgenextcdn.net/out/v1/18cffab0757d448ca6c1a686d330b346/in
 #EXTINF:-1 tvg-name="Sharjah Sports" tvg-logo="https://i.imgur.com/CsEElsJ.png" group-title="⚽ رياضة دولية",رياضة الشارقة
 https://svs.itworkscdn.net/smc4sportslive/smc4.smil/playlist.m3u8
 
+#EXTINF:-1 tvg-id="BahrainSports1.bh" tvg-name="البحرين الرياضية 1" tvg-logo="https://i.imgur.com/fBpLsbC.png" group-title="⚽ رياضة دولية",البحرين الرياضية 1
+https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8
+
+#EXTINF:-1 tvg-id="OmanSportsTV.om" tvg-name="عمان الرياضية" tvg-logo="https://i.imgur.com/1omi7p8.png" group-title="⚽ رياضة دولية",عُمان الرياضية
+https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8
+
+#EXTINF:-1 tvg-id="RedBullTV.at" tvg-name="Red Bull TV" tvg-logo="https://i.imgur.com/7NeBmWz.png" group-title="⚽ رياضة دولية",ريد بُل TV
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8
+
 #=====================================
 # 📰 أخبار عربية
 #=====================================
