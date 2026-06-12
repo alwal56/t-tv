@@ -7,8 +7,9 @@ plugins {
 
 android {
     namespace = "com.ttv.t_tv"
-    compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 36
+    // أعلى نسخة NDK تطلبها الإضافات (media_kit وغيرها) — متوافقة رجعياً
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -17,6 +18,8 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
+        // تجاوز فحص نسخة الميتاداتا لتوافق إضافات Kotlin المختلفة
+        freeCompilerArgs += "-Xskip-metadata-version-check"
     }
 
     defaultConfig {
