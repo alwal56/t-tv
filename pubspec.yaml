@@ -1,0 +1,43 @@
+name: t_tv
+description: T-TV - تطبيق بث مباشر IPTV
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  provider: ^6.1.2
+
+  # Video Player (cross-platform: Android, Windows, Web)
+  media_kit: ^1.1.11
+  media_kit_video: ^1.2.5
+  media_kit_libs_video: ^1.0.5
+
+  # Networking
+  http: ^1.2.1
+
+  # Storage
+  shared_preferences: ^2.3.2
+
+  # XML parsing (EPG)
+  xml: ^6.5.0
+
+  # UI
+  cached_network_image: ^3.3.1
+  shimmer: ^3.0.0
+  google_fonts: ^6.2.1
+
+  # Icons
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
