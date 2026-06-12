@@ -1,11 +1,8 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html show window;
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/news_article.dart';
 import '../services/cors_proxy.dart';
+import '../services/web_interop.dart';
 import '../theme/app_theme.dart';
 
 /// قارئ المقال داخل التطبيق — يعرض النص كاملاً بدون مغادرة التطبيق.
@@ -53,11 +50,7 @@ class _NewsDetailScreenState extends State<NewsDetailScreen> {
   }
 
   void _openSource() {
-    if (kIsWeb) {
-      try {
-        html.window.open(widget.article.url, '_blank');
-      } catch (_) {}
-    }
+    WebInterop.openUrl(widget.article.url);
   }
 
   @override

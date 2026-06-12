@@ -1,7 +1,6 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:js_util' as js_util;
-
 import 'package:flutter/foundation.dart';
+
+import 'web_interop.dart';
 
 /// نتيجة قراءة الصورة وتحليلها
 class OcrResult {
@@ -30,8 +29,7 @@ class OcrService {
   static Future<OcrResult?> pickAndRead() async {
     if (!kIsWeb) return null;
     try {
-      final promise = js_util.callMethod(js_util.globalThis, 'pickAndOcr', []);
-      final text = await js_util.promiseToFuture<String>(promise);
+      final text = await WebInterop.pickImageText();
       if (text.trim().isEmpty) return const OcrResult(rawText: '');
       return _parse(text);
     } catch (_) {
