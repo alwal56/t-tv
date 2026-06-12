@@ -2,9 +2,32 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/channel.dart';
+import 'cors_proxy.dart';
 
 /// Xtream Codes API integration
 class XtreamService {
+  /// يجلب JSON من player_api — عبر بروكسي CORS على الويب (الخوادم غالباً تحجب المتصفح)
+  static Future<String?> _fetchApi(String url) async {
+    if (kIsWeb) {
+      return CorsProxy.fetch(
+        url,
+        timeout: const Duration(seconds: 30),
+        isValid: (b) {
+          final t = b.trimLeft();
+          return t.startsWith('[') || t.startsWith('{');
+        },
+      );
+    }
+    try {
+      final resp = await http
+          .get(Uri.parse(url), headers: {'User-Agent': 'T-TV/1.0'})
+          .timeout(const Duration(seconds: 60));
+      return resp.statusCode == 200 ? resp.body : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
   static Future<List<Channel>> loadChannels({
     required String server,
     required String username,
@@ -18,17 +41,13 @@ class XtreamService {
     }
     if (base.endsWith('/')) base = base.substring(0, base.length - 1);
 
-    final headers = kIsWeb ? <String, String>{} : {'User-Agent': 'T-TV/1.0'};
-
     // ── Step 1: Get live categories ──────────────────────────────────────────
     final Map<String, String> catNames = {};
     try {
-      final catUri = Uri.parse(
+      final catBody = await _fetchApi(
           '$base/player_api.php?username=$username&password=$password&action=get_live_categories');
-      final catResp =
-          await http.get(catUri, headers: headers).timeout(const Duration(seconds: 20));
-      if (catResp.statusCode == 200) {
-        final cats = jsonDecode(catResp.body) as List;
+      if (catBody != null) {
+        final cats = jsonDecode(catBody) as List;
         for (final cat in cats) {
           catNames[cat['category_id'].toString()] =
               cat['category_name'].toString();
@@ -39,17 +58,15 @@ class XtreamService {
     }
 
     // ── Step 2: Get live streams ─────────────────────────────────────────────
-    final streamUri = Uri.parse(
+    final body = await _fetchApi(
         '$base/player_api.php?username=$username&password=$password&action=get_live_streams');
-    final resp = await http
-        .get(streamUri, headers: headers)
-        .timeout(const Duration(seconds: 60));
 
-    if (resp.statusCode != 200) {
-      throw Exception('فشل تحميل القنوات (${resp.statusCode})');
+    if (body == null) {
+      throw Exception(
+          'تعذّر الوصول للخادم — قد يحجب المتصفح. جرّب تطبيق أندرويد');
     }
 
-    final dynamic decoded = jsonDecode(resp.body);
+    final dynamic decoded = jsonDecode(body);
     if (decoded is! List) {
       throw Exception('استجابة غير صحيحة من الخادم');
     }
